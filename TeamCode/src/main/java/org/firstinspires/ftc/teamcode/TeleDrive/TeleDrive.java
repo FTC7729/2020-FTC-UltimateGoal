@@ -301,7 +301,7 @@ public abstract class TeleDrive extends OpMode {
     @Override
     public void init() {
         String address = "192.168.49.1";
-        int port = 1111;
+        int port = 7729;
         canRunGamepadThread = false;
 
         try {
