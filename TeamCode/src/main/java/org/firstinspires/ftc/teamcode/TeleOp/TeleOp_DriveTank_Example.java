@@ -67,7 +67,7 @@ public class TeleOp_DriveTank_Example extends LinearOpMode {
                     How is this useful for debugging?
         */
         // Send telemetry message to Driver Station
-        telemetry.addData("Status: ", "Hit [Init] to Initialize ze bot");    //
+        telemetry.addData("Status: ", "Hit [Init] to Initialize the bot");    //
         telemetry.update();
 
         /*
