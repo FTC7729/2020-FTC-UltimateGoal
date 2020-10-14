@@ -66,8 +66,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this Op Mode to the Driver Station OpMode list
  */
-@TeleOp(name = "Sensor: Color", group = "Sensor")
-@Disabled
+@TeleOp(name = "sensorColor", group = "Sensor")
+//@Disabled
 public class SensorColor extends LinearOpMode {
 
   /** The colorSensor field will contain a reference to our color sensor hardware object */
@@ -117,7 +117,8 @@ public class SensorColor extends LinearOpMode {
     // of the 0-1 range that is available for the red, green, and blue values. In brighter conditions,
     // you should use a smaller gain than in dark conditions. If your gain is too high, all of the
     // colors will report at or near 1, and you won't be able to determine what color you are
-    // actually looking at. For this reason, it's better to err on the side of a lower gain
+    // actually looking at. For this reason,
+    // it's better to err on the side of a lower gain
     // (but always greater than  or equal to 1).
     float gain = 2;
 
