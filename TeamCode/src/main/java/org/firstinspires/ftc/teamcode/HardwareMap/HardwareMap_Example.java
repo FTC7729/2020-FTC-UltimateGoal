@@ -55,6 +55,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class HardwareMap_Example
 {
     public DcMotor leftBack;
+    public DcMotor rightBack;
     /* Public OpMode members. */
     // CHAWKS: The Robot Parts need to be established here
   //  public DcMotor  leftFront   = null;
