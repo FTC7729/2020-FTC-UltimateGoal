@@ -93,7 +93,7 @@ public class b2_park extends LinearOpMode {
         // MUST HAVE THIS LINE BELOW
 
 
-
+            // state is basiclaly step#
             int state = 0;
             if (state == 0){
                 //init robot
@@ -103,7 +103,8 @@ public class b2_park extends LinearOpMode {
             }
 
             if (state == 1){
-                //move foreword 1 inch
+
+                //move foreword 1 foot
                 telemetry.addData("State","1");
                 telemetry.update();
                 //goForward(.5,1);
@@ -111,6 +112,8 @@ public class b2_park extends LinearOpMode {
             }
 
             if (state == 2) {
+
+                //turn 90degrees left
                 telemetry.addData("State","2");
                 telemetry.update();
                 //strafe right 30 inches
@@ -119,12 +122,21 @@ public class b2_park extends LinearOpMode {
             }
 
             if (state == 3) {
+
+                //go forwards 6 feet
                 telemetry.addData("State","3");
                 telemetry.update();
-                //stopMotors();
-                //stop!
+                state = 4;
             }
+            if (state == 3) {
 
+            //go forwards 6 feet
+            telemetry.addData("State","3");
+            telemetry.update();
+            //stopMotors();
+            //stop!
+
+            }
     }
 
     /*
