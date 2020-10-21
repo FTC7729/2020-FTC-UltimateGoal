@@ -105,26 +105,29 @@ public class b1_park extends LinearOpMode {
         }
 
         if (state == 1){
-            //move foreword 1 inch
             telemetry.addData("State","1");
             telemetry.update();
-            //goForward(.5,1);
+            //facing west move forward one foot
             state = 2;
         }
 
         if (state == 2) {
             telemetry.addData("State","2");
             telemetry.update();
-            //strafe right 30 inches
-            //strafeRight(.3,36);
+            //turn 90 degrees clockwise
             state = 3;
         }
 
         if (state == 3) {
-            telemetry.addData("State","3");
+            telemetry.addData("State", "3");
             telemetry.update();
-            //stopMotors();
-            //stop!
+            //move forward six feet
+            state = 4;
+        }
+        if (state == 4) {
+            telemetry.addData("State","4");
+            telemetry.update();
+            //Stop
         }
     }
 
