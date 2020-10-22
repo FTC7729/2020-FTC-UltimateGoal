@@ -46,7 +46,7 @@ import org.firstinspires.ftc.teamcode.HardwareMap.HardwareMap_Example;
  *
  */
 // CHAWKS: Name it something useful!
-@Autonomous(name="blue who?", group="test who?")
+@Autonomous(name="B1 Park", group="Blue_Autonomous")
 // CHAWKS: What does @Disabled mean? what happens if we remove it?
 //@Disabled
 public class b1_park extends LinearOpMode {
@@ -124,10 +124,12 @@ public class b1_park extends LinearOpMode {
             //move forward six feet
             state = 4;
         }
+
         if (state == 4) {
             telemetry.addData("State","4");
             telemetry.update();
-            //Stop
+            //stop
+
         }
     }
 
