@@ -46,7 +46,7 @@ import org.firstinspires.ftc.teamcode.HardwareMap.HardwareMap_Example;
  *
  */
 // CHAWKS: Name it something useful!
-@Autonomous(name="Blue who?", group="test who?")
+@Autonomous(name="Blue 2 Park?", group="Blue_Autonomous?")
 // CHAWKS: What does @Disabled mean? what happens if we remove it?
 //@Disabled
 public class b2_park extends LinearOpMode {
@@ -95,16 +95,15 @@ public class b2_park extends LinearOpMode {
 
             // state is basiclaly step#
             int state = 0;
-            if (state == 0){
+            if (state == 0) {
                 //init robot
                 robot.init(hardwareMap);
                 waitForStart();
                 state = 1;
             }
 
-            if (state == 1){
-
-                //move foreword 1 foot
+            if (state == 1) {
+                //move foreword 1 foot = 12 inches
                 telemetry.addData("State","1");
                 telemetry.update();
                 //goForward(.5,1);
@@ -112,29 +111,24 @@ public class b2_park extends LinearOpMode {
             }
 
             if (state == 2) {
-
                 //turn 90degrees left
                 telemetry.addData("State","2");
                 telemetry.update();
-                //strafe right 30 inches
-                //strafeRight(.3,36);
                 state = 3;
             }
 
             if (state == 3) {
-
-                //go forwards 6 feet
+                //go forwards 6 feet = 72 inches
                 telemetry.addData("State","3");
                 telemetry.update();
                 state = 4;
             }
-            if (state == 3) {
 
-            //go forwards 6 feet
-            telemetry.addData("State","3");
-            telemetry.update();
-            //stopMotors();
-            //stop!
+            if (state == 4) {
+                //motors stop
+                telemetry.addData("State","4");
+                telemetry.update();
+
 
             }
     }
