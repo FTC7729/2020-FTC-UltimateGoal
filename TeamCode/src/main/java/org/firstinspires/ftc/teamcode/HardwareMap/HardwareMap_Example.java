@@ -115,10 +115,11 @@ public class HardwareMap_Example
 
         //leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
  }
