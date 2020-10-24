@@ -56,16 +56,6 @@ public class b2_park extends LinearOpMode {
     private ElapsedTime     runtime = new ElapsedTime();
 
 
-    /*
-        CHAWKS: All the values can be moved to HardwareMap? Are these common values?
-     */
-    static final double     COUNTS_PER_MOTOR_REV    = 288 ;    // eg: Rev Core Hex Motors
-    static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
-    static final double     WHEEL_DIAMETER_INCHES   = 3.5 ;     // For figuring circumference
-    static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-                                                      (WHEEL_DIAMETER_INCHES * Math.PI);
-    static final double     DRIVE_SPEED             = 1;    // 0<1
-    static final double     TURN_SPEED              = 1;    // 0<1
 
     /*
         CHAWKS: It has begun!!! Run the OpMode!!! Make the robot execute all our code!!!
@@ -107,7 +97,7 @@ public class b2_park extends LinearOpMode {
                 telemetry.addData("State","1");
                 telemetry.update();
                 //goForward(.5,1);
-                encoderDrive(DRIVE_SPEED, 12, 12, 30);
+                encoderDrive(robot.DRIVE_SPEED, 12, 12, 30);
                 state = 2;
             }
 
@@ -115,7 +105,7 @@ public class b2_park extends LinearOpMode {
                 //turn 90degrees left
                 telemetry.addData("State","2");
                 telemetry.update();
-                encoderDrive(TURN_SPEED, -9, 9, 30);
+                encoderDrive(robot.TURN_SPEED, -9, 9, 30);
                 state = 3;
             }
 
@@ -123,7 +113,7 @@ public class b2_park extends LinearOpMode {
                 //go forwards 6 feet = 72 inches
                 telemetry.addData("State","3");
                 telemetry.update();
-                encoderDrive(DRIVE_SPEED, 72, 72, 30);
+                encoderDrive(robot.DRIVE_SPEED, 72, 72, 30);
                 state = 4;
             }
 
@@ -162,8 +152,8 @@ public class b2_park extends LinearOpMode {
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftTarget = robot.leftBack.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newRightTarget = robot.rightBack.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            newLeftTarget = robot.leftBack.getCurrentPosition() + (int)(leftInches * robot.COUNTS_PER_INCH);
+            newRightTarget = robot.rightBack.getCurrentPosition() + (int)(rightInches * robot.COUNTS_PER_INCH);
             robot.leftBack.setTargetPosition(newLeftTarget);
             robot.rightBack.setTargetPosition(newRightTarget);
 
