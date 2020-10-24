@@ -106,7 +106,7 @@ public class b1_park extends LinearOpMode {
         if (state == 1){
             telemetry.addData("State","1");
             telemetry.update();
-            encoderDrive(DRIVE_SPEED,12,12, 30);
+            encoderDrive(DRIVE_SPEED,-12,-12, 30);
             //facing west move forward one foot
             state = 2;
         }
@@ -114,7 +114,7 @@ public class b1_park extends LinearOpMode {
         if (state == 2) {
             telemetry.addData("State","2");
             telemetry.update();
-            encoderDrive(TURN_SPEED,6,-6, 30);
+            encoderDrive(TURN_SPEED,-9,9, 30);
             //turn 90 degrees clockwise
             state = 3;
         }
@@ -122,7 +122,7 @@ public class b1_park extends LinearOpMode {
         if (state == 3) {
             telemetry.addData("State", "3");
             telemetry.update();
-            encoderDrive(DRIVE_SPEED,72,72,30);
+            encoderDrive(DRIVE_SPEED,-72,-72,30);
             //move forward six feet
             state = 4;
         }
