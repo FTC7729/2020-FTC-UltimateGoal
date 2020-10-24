@@ -115,7 +115,7 @@ public class b2_park extends LinearOpMode {
                 //turn 90degrees left
                 telemetry.addData("State","2");
                 telemetry.update();
-                encoderDrive(TURN_SPEED, -6, 6, 30);
+                encoderDrive(TURN_SPEED, -12, 12, 30);
                 state = 3;
             }
 
