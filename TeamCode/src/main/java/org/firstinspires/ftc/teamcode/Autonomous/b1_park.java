@@ -49,11 +49,9 @@ import org.firstinspires.ftc.teamcode.HardwareMap.HardwareMap_Example;
 @Autonomous(name="B1 Park", group="Blue_Autonomous")
 // CHAWKS: What does @Disabled mean? what happens if we remove it?
 //@Disabled
-public class b1_park extends LinearOpMode {
+public class b1_park extends HardwareMap_Example {
 
-    /* CHAWKS: Call and declare the robot here */
-    HardwareMap_Example     robot   = new HardwareMap_Example();   // Use a Pushbot's hardware
-    private ElapsedTime     runtime = new ElapsedTime();
+
 
     /*
         CHAWKS: All the values can be moved to HardwareMap? Are these common values?
@@ -91,7 +89,7 @@ public class b1_park extends LinearOpMode {
         int state = 0;
         if (state == 0){
             //init robot
-            robot.init(hardwareMap);
+            init(hardwareMap);
             waitForStart();
             state = 1;
         }
@@ -99,7 +97,7 @@ public class b1_park extends LinearOpMode {
         if (state == 1){
             telemetry.addData("State","1");
             telemetry.update();
-            encoderDrive(robot.DRIVE_SPEED,-12,-12, 30);
+            encoderDrive(DRIVE_SPEED,-12,-12, 30);
             //facing west move forward one foot
             state = 2;
         }
@@ -107,7 +105,7 @@ public class b1_park extends LinearOpMode {
         if (state == 2) {
             telemetry.addData("State","2");
             telemetry.update();
-            encoderDrive(robot.TURN_SPEED,-9,9, 30);
+            encoderDrive(TURN_SPEED,-9,9, 30);
             //turn 90 degrees clockwise
             state = 3;
         }
@@ -115,7 +113,7 @@ public class b1_park extends LinearOpMode {
         if (state == 3) {
             telemetry.addData("State", "3");
             telemetry.update();
-            encoderDrive(robot.DRIVE_SPEED,-72,-72,30);
+            encoderDrive(DRIVE_SPEED,-72,-72,30);
             //move forward six feet
             state = 4;
         }
@@ -123,78 +121,12 @@ public class b1_park extends LinearOpMode {
         if (state == 4) {
             telemetry.addData("State","4");
             telemetry.update();
-            robot.rightBack.setPower(0);
-            robot.leftBack.setPower(0);
+            rightBack.setPower(0);
+            leftBack.setPower(0);
             //stop
 
         }
     }
 
-    /*
-     *  CHAWKS: It's a METHOD!!!
-     *
-     *  Method to perform a relative move, based on encoder counts.
-     *  Encoders are not reset as the move is based on the current position.
-     *  Move will stop if any of three conditions occur:
-     *  1) Move gets to the desired position
-     *  2) Move runs out of time
-     *  3) Driver stops the opmode running.
-     */
-    public void encoderDrive(double speed,
-                             double leftInches, double rightInches,
-                             double timeoutS) {
-        int newLeftTarget;
-        int newRightTarget;
 
-        // Ensure that the opmode is still active
-        /*
-            CHAWKS: opModeIsActive is a very awesome & important
-                    Autonomous mode is 30 seconds...
-         */
-        if (opModeIsActive()) {
-
-            // Determine new target position, and pass to motor controller
-            newLeftTarget = robot.leftBack.getCurrentPosition() + (int)(leftInches * robot.COUNTS_PER_INCH);
-            newRightTarget = robot.rightBack.getCurrentPosition() + (int)(rightInches * robot.COUNTS_PER_INCH);
-            robot.leftBack.setTargetPosition(newLeftTarget);
-            robot.rightBack.setTargetPosition(newRightTarget);
-
-            // Turn On RUN_TO_POSITION
-            robot.leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            // reset the timeout time and start motion.
-            runtime.reset();
-            robot.leftBack.setPower(Math.abs(speed));
-            robot.rightBack.setPower(Math.abs(speed));
-
-            // keep looping while we are still active, and there is time left, and both motors are running.
-            // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
-            // its target position, the motion will stop.  This is "safer" in the event that the robot will
-            // always end the motion as soon as possible.
-            // However, if you require that BOTH motors have finished their moves before the robot continues
-            // onto the next step, use (isBusy() || isBusy()) in the loop test.
-            while (opModeIsActive() &&
-                   (runtime.seconds() < timeoutS) &&
-                   (robot.leftBack.isBusy() && robot.rightBack.isBusy())) {
-
-                // Display it for the driver.
-                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
-                telemetry.addData("Path2",  "Running at %7d :%7d",
-                                            robot.leftBack.getCurrentPosition(),
-                                            robot.rightBack.getCurrentPosition());
-                telemetry.update();
-            }
-
-            // Stop all motion;
-            robot.leftBack.setPower(0);
-            robot.rightBack.setPower(0);
-
-            // Turn off RUN_TO_POSITION
-            robot.leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-            //  sleep(250);   // optional pause after each move
-        }
-    }
 }
