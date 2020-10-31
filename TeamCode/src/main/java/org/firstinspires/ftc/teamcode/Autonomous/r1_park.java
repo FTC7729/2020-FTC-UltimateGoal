@@ -97,7 +97,7 @@ public class r1_park extends HardwareMap_Example {
         if (state == 1){
             telemetry.addData("State","1");
             telemetry.update();
-            encoderDrive(DRIVE_SPEED,-12,-12, 30);
+            encoderDrive(DRIVE_SPEED,12,12, 30);
             //facing red alliance
             state = 2;
         }
