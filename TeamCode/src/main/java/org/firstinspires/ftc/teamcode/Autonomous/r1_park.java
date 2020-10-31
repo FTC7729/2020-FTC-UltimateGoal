@@ -98,7 +98,7 @@ public class r1_park extends HardwareMap_Example {
             telemetry.addData("State","1");
             telemetry.update();
             encoderDrive(DRIVE_SPEED,-12,-12, 30);
-            //facing west move forward one foot
+            //facing red alliance
             state = 2;
         }
 
@@ -106,7 +106,7 @@ public class r1_park extends HardwareMap_Example {
             telemetry.addData("State","2");
             telemetry.update();
             encoderDrive(TURN_SPEED,-9,9, 30);
-            //turn 90 degrees clockwise
+            //turn 90 degrees counterclockwise
             state = 3;
         }
 
