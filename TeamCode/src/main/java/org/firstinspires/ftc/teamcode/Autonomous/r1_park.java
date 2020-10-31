@@ -113,7 +113,7 @@ public class r1_park extends HardwareMap_Example {
         if (state == 3) {
             telemetry.addData("State", "3");
             telemetry.update();
-            encoderDrive(DRIVE_SPEED,-72,-72,30);
+            encoderDrive(DRIVE_SPEED,72,72,30);
             //move forward six feet
             state = 4;
         }
