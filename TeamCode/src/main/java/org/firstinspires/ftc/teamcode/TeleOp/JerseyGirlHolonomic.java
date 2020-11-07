@@ -6,21 +6,28 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.HardwareMap.HardwareMap_Example;
+import org.firstinspires.ftc.teamcode.HardwareMap.JerseyGirl_HardwareMap;
 
 // CHAWKS: Name it something useful!
 @TeleOp(name = "I like to move", group = "A")
 //@Disabled
-public class JerseyGirlHolonomic extends HardwareMap_Example {
+public class JerseyGirlHolonomic extends JerseyGirl_HardwareMap {
 
 
     @Override
     public void runOpMode() {
-
+        double totalAngle;
+        double targetAngle = 0;
+        double currentAngle;
+        Orientation angles;
         double rStickX;
         double rStickY;
         double lStickX;
-        double targetAngle;
         double mag1;
         double mag2;
         double rotationPower;
@@ -42,6 +49,10 @@ public class JerseyGirlHolonomic extends HardwareMap_Example {
         // MUST HAVE THIS LINE BELOW
         init(hardwareMap);
 
+        angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS);
+        currentAngle = (double) angles.firstAngle;
+        telemetry.addData("Heading: ", "%.3f", currentAngle);
+
         // Send telemetry message to "Driver Station" signify robot waiting;
         telemetry.addData("Status: ", "Hit [PLAY] to start!");    //
         telemetry.update();
@@ -59,6 +70,7 @@ public class JerseyGirlHolonomic extends HardwareMap_Example {
         // MUST HAVE!
         while (opModeIsActive()) {
 
+            totalAngle = targetAngle + currentAngle;
             rStickX = gamepad1.right_stick_x;
             rStickY = -gamepad1.right_stick_y;
             lStickX = gamepad1.left_stick_x;
@@ -66,8 +78,8 @@ public class JerseyGirlHolonomic extends HardwareMap_Example {
             targetAngle = (Math.atan2(rStickY, rStickX));
 
             rotationPower = -lStickX;
-            mag1 = Math.sqrt(Math.pow(rStickX, 2) + Math.pow(rStickY, 2)) * (Math.sin(targetAngle + Math.PI / 4));
-            mag2 = Math.sqrt(Math.pow(rStickX, 2) + Math.pow(rStickY, 2)) * (Math.sin(targetAngle - Math.PI / 4));
+            mag1 = Math.sqrt(Math.pow(rStickX,2) + Math.pow(rStickY,2)) * (Math.sin(totalAngle + Math.PI / 4));
+            mag2 = Math.sqrt(Math.pow(rStickX,2) + Math.pow(rStickY,2)) * (Math.sin(totalAngle - Math.PI / 4));
 
             maxPower = Math.max(Math.abs(mag1) + Math.abs(rotationPower), Math.abs(mag2) + Math.abs(rotationPower)) + 0.15;
             scaleDown = 1.0;
