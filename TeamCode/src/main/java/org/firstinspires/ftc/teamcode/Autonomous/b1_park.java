@@ -36,7 +36,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.HardwareMap.HardwareMap_Example;
-
+import org.firstinspires.ftc.teamcode.HardwareMap.jerseyGirlHardwareMap;
 //import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 // List where other files are located that are used in this OpMode
 
@@ -49,7 +49,7 @@ import org.firstinspires.ftc.teamcode.HardwareMap.HardwareMap_Example;
 @Autonomous(name="B1 Park", group="Blue_Autonomous")
 // CHAWKS: What does @Disabled mean? what happens if we remove it?
 //@Disabled
-public class b1_park extends HardwareMap_Example {
+public class b1_park extends jerseyGirlHardwareMap {
 
 
 
@@ -97,7 +97,8 @@ public class b1_park extends HardwareMap_Example {
         if (state == 1){
             telemetry.addData("State","1");
             telemetry.update();
-            encoderDrive(DRIVE_SPEED,-12,-12, 30);
+            //encoderDrive(DRIVE_SPEED,-12,-12, 30);
+            goForward(1,12);
             //facing west move forward one foot
             state = 2;
         }
