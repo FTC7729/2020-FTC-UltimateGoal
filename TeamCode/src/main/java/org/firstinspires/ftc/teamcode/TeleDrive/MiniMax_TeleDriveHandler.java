@@ -4,20 +4,15 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.teamcode.TeleDrive.TeleDrive;
-
-import java.net.CookieHandler;
 
 @TeleOp(name = "Your TeleOp Name", group = "TeleOpMode")
 @Disabled
-public class SampleTeleDriveOpMode extends TeleDrive {
+public class MiniMax_TeleDriveHandler extends TeleDrive {
 
 
     private ElapsedTime runtime = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
-    public DcMotor leftFront   = null;
-    public DcMotor rightFront   = null;
+
     public DcMotor leftBack   = null;
     public DcMotor rightBack   = null;
 
@@ -36,10 +31,8 @@ public class SampleTeleDriveOpMode extends TeleDrive {
             CHAWKS: The deviceName should ALWAYS ALWAYS ALWAYS
                     match the part name to avoid confusion
 
-*/
+        */
 
-        leftFront  = hardwareMap.dcMotor.get("leftFront");
-        rightFront  = hardwareMap.dcMotor.get("rightFront");
 
         leftBack = hardwareMap.dcMotor.get("leftBack");
         rightBack = hardwareMap.dcMotor.get("rightBack");
@@ -50,8 +43,6 @@ public class SampleTeleDriveOpMode extends TeleDrive {
             CHAWKS: Why are we reversing the Right Wheels?
 
 */
-        leftFront.setDirection(DcMotor.Direction.REVERSE);
-        rightFront.setDirection(DcMotor.Direction.FORWARD);
         leftBack.setDirection(DcMotor.Direction.FORWARD);
         rightBack.setDirection(DcMotor.Direction.REVERSE);
 

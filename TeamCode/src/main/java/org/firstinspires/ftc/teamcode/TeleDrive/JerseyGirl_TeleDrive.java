@@ -3,9 +3,9 @@ package org.firstinspires.ftc.teamcode.TeleDrive;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-@TeleOp(name = "Jersey TeleDrive ", group = "A")
+@TeleOp(name = "Jersey TeleDrive ", group = "B")
 //@Disabled
-public class JerseyGirl_TeleDrive extends SampleTeleDriveOpMode {
+public class JerseyGirl_TeleDrive extends JerseyGirl_TeleDriveHandler {
 
     public void handleGamepad1(Gamepad gamepad){
        double rStickX;
