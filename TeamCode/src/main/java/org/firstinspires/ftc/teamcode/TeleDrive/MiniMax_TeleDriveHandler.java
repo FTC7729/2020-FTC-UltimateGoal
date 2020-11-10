@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name = "MiniMax_TeleDriveHandler", group = "TeleOpMode")
 @Disabled
-public class MiniMax_TeleDriveHandler extends TeleDrive {
+public class MiniMax_TeleDriveHandler extends TeleDrive_MM {
 
 
     private ElapsedTime runtime = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
