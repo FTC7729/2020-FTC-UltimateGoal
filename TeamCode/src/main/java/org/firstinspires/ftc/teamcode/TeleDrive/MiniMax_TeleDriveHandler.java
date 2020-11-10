@@ -6,7 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name = "Your TeleOp Name", group = "TeleOpMode")
+
+@TeleOp(name = "MiniMax_TeleDriveHandler", group = "TeleOpMode")
 @Disabled
 public class MiniMax_TeleDriveHandler extends TeleDrive {
 

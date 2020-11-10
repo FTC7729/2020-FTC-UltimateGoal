@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.TeleDrive.TeleDrive;
 
 import java.net.CookieHandler;
 
-@TeleOp(name = "Your TeleOp Name", group = "TeleOpMode")
+@TeleOp(name = "JerseyGirl_TeleDriveHandler", group = "TeleOpMode")
 @Disabled
 public class JerseyGirl_TeleDriveHandler extends TeleDrive {
 
