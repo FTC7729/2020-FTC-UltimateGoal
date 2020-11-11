@@ -97,16 +97,16 @@ public class b1_park extends jerseyGirlHardwareMap {
         if (state == 1){
             telemetry.addData("State","1");
             telemetry.update();
-            goForward(1,12);
-            //facing Blue alliance move forward one foot.
+            strafeLeft(1,12);
+            //facing Forward strafe left one foot.
             state = 2;
         }
 
         if (state == 2) {
             telemetry.addData("State","2");
             telemetry.update();
-            strafeRight(1,72);
-            //Strafe six feet onto the wayline
+            goForward(1,72);
+            //Move forward six feet.
             state = 3;
         }
 
