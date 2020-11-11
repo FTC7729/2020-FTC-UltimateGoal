@@ -97,36 +97,28 @@ public class b1_park extends jerseyGirlHardwareMap {
         if (state == 1){
             telemetry.addData("State","1");
             telemetry.update();
-            //encoderDrive(DRIVE_SPEED,-12,-12, 30);
             goForward(1,12);
-            //facing west move forward one foot
+            //facing Blue alliance move forward one foot.
             state = 2;
         }
 
         if (state == 2) {
             telemetry.addData("State","2");
             telemetry.update();
-            encoderDrive(TURN_SPEED,-9,9, 30);
-            //turn 90 degrees clockwise
+            strafeRight(1,72);
+            //Strafe six feet onto the wayline
             state = 3;
         }
 
         if (state == 3) {
             telemetry.addData("State", "3");
             telemetry.update();
-            encoderDrive(DRIVE_SPEED,-72,-72,30);
-            //move forward six feet
+            rightBack.setPower(0);
+            leftBack.setPower(0);
+            //stop all motion
             state = 4;
         }
 
-        if (state == 4) {
-            telemetry.addData("State","4");
-            telemetry.update();
-            rightBack.setPower(0);
-            leftBack.setPower(0);
-            //stop
-
-        }
     }
 
 
