@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import org.firstinspires.ftc.teamcode.HardwareMap.jerseyGirlHardwareMap;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -50,7 +51,7 @@ import org.firstinspires.ftc.teamcode.HardwareMap.HardwareMap_Example;
 @Autonomous(name="Blue2 Park", group="Blue_Autonomous")
 // CHAWKS: What does @Disabled mean? what happens if we remove it?
 //@Disabled
-public class b2_park extends HardwareMap_Example {
+public class b2_park extends jerseyGirlHardwareMap {
 
 
 
@@ -82,7 +83,7 @@ public class b2_park extends HardwareMap_Example {
         // MUST HAVE THIS LINE BELOW
 
 
-            // state is basiclaly step#
+            // state is basically step#
             int state = 0;
             if (state == 0) {
                 //init robot
@@ -92,39 +93,30 @@ public class b2_park extends HardwareMap_Example {
             }
 
             if (state == 1) {
-                //move foreword 1 foot = 12 inches
+                //strafe right 1 foot
                 telemetry.addData("State","1");
                 telemetry.update();
-                //goForward(.5,1);
-                encoderDrive(DRIVE_SPEED, 12, 12, 30);
+               strafeRight(1,12);
                 state = 2;
             }
 
             if (state == 2) {
-                //turn 90degrees left
+                //move forward six feet
                 telemetry.addData("State","2");
                 telemetry.update();
-                encoderDrive(TURN_SPEED, -9, 9, 30);
+                goForward(1,72);
                 state = 3;
             }
 
             if (state == 3) {
-                //go forwards 6 feet = 72 inches
+                //stop
                 telemetry.addData("State","3");
-                telemetry.update();
-                encoderDrive(DRIVE_SPEED, 72, 72, 30);
-                state = 4;
-            }
-
-            if (state == 4) {
-                //motors stop
-                telemetry.addData("State","4");
                 telemetry.update();
                 leftBack.setPower(0);
                 rightBack.setPower(0);
-
-
+                state = 4;
             }
+
     }
 
 
