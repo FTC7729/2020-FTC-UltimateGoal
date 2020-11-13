@@ -105,19 +105,22 @@ public class b1_park extends jerseyGirlHardwareMap {
         if (state == 2) {
             telemetry.addData("State","2");
             telemetry.update();
-            goForward(1,72);
-            //Move forward six feet.
+         sleep(2000);
             state = 3;
         }
 
         if (state == 3) {
             telemetry.addData("State", "3");
             telemetry.update();
-            rightBack.setPower(0);
-            leftBack.setPower(0);
-            //stop all motion
+            goForward(1,72);
+            //Move forward six feet.
             state = 4;
         }
+        
+        if(state == 4);
+        rightBack.setPower(0);
+        leftBack.setPower(0);
+        //stop all motion
 
     }
 
