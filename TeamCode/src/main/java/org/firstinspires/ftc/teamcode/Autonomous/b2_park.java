@@ -66,8 +66,8 @@ public class b2_park extends jerseyGirlHardwareMap {
     public void runOpMode() {
 
 
-         // Initialize the drive system variables.
-         // The init() method of the hardware class does all the work here
+        // Initialize the drive system variables.
+        // The init() method of the hardware class does all the work here
 
         /*
             CHAWKS: On Driver Station, telemetry will be display!
@@ -83,41 +83,46 @@ public class b2_park extends jerseyGirlHardwareMap {
         // MUST HAVE THIS LINE BELOW
 
 
-            // state is basically step#
-            int state = 0;
-            if (state == 0) {
-                //init robot
-               init(hardwareMap);
-                waitForStart();
-                state = 1;
-            }
+        // state is basically step#
+        int state = 0;
+        if (state == 0) {
+            //init robot
+            init(hardwareMap);
+            waitForStart();
+            state = 1;
+        }
 
-            if (state == 1) {
-                //strafe right 1 foot
-                telemetry.addData("State","1");
-                telemetry.update();
-               strafeRight(1,12);
-                state = 2;
-            }
+        if (state == 1) {
+            //strafe right 1 foot
+            telemetry.addData("State", "1");
+            telemetry.update();
+            strafeRight(1, 12);
+            state = 2;
+        }
 
-            if (state == 2) {
-                //move forward six feet
-                telemetry.addData("State","2");
-                telemetry.update();
-                goForward(1,72);
-                state = 3;
-            }
+        if (state == 2) {
+            //move forward six feet
+            telemetry.addData("State", "2");
+            telemetry.update();
+            goForward(1, 72);
+            state = 3;
+        }
 
-            if (state == 3) {
-                //stop
-                telemetry.addData("State","3");
-                telemetry.update();
-                leftBack.setPower(0);
-                rightBack.setPower(0);
-                state = 4;
-            }
+        if (state == 3) {
+            //pause motors for 2 seconds
+            telemetry.addData("State", "3");
+            telemetry.update();
+            sleep(2000);
+            state = 4;
+        }
+        if (state == 4) {
+            //stop
+            telemetry.addData("State", "3");
+            telemetry.update();
+            leftBack.setPower(0);
+            rightBack.setPower(0);
+            state = 5;
+        }
 
     }
-
-
 }

@@ -212,7 +212,7 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode
             leftBack.setPower((power - (error * k)));
             rightBack.setPower((power + (error * k)));
         }
-
+        stopMotors();
     }
 
     public void goBackward(double power, int distance){
@@ -263,6 +263,7 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode
 
             telemetry.update();
         }
+        stopMotors();
     }
 
     public void strafeRight(double power, int distance) {
@@ -296,6 +297,7 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode
 
             telemetry.update();
         }
+        stopMotors();
     }
     public void encoderDrive(double speed,
                              double leftInches, double rightInches,
