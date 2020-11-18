@@ -97,10 +97,10 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode
         /*
             CHAWKS: Why do we set the power to zero?
          */
-        leftFront.setPower(0);
-        rightFront.setPower(0);
-        leftBack.setPower(0);
-        rightBack.setPower(0);
+        //leftFront.setPower(0);
+        //rightFront.setPower(0);
+        //leftBack.setPower(0);
+        //rightBack.setPower(0);
 
         // Set all motors to run without encoders.
         /*
@@ -109,10 +109,10 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode
 
         //leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
