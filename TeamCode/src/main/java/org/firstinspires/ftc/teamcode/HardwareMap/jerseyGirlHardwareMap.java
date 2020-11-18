@@ -220,7 +220,7 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode {
         stopMotors();
 
     }
-    
+
     public void goBackward(double power, int distance) {
         goForward(-power, -distance);
     }
