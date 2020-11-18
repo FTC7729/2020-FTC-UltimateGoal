@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
@@ -17,51 +18,51 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 /**
  * This is NOT an opmode.
- *
+ * <p>
  * This hardware class assumes the following device names have been configured on the robot:
  * CHAWKS:  Naming convention is camel case!
- *
- *          front
- *    (LF)--------(RF)
- *    |    robot   |
- *   (LB)--------(RB)
- *        back
- *
+ * <p>
+ * front
+ * (LF)--------(RF)
+ * |    robot   |
+ * (LB)--------(RB)
+ * back
+ * <p>
  * Motor channel:  Left Front (LF) drive motor:        "leftFront"
  * Motor channel:  Right Front (RF) drive motor:        "rightFront"
  * Motor channel:  Left Back (LB) drive motor:        "leftBack"
  * Motor channel:  Right Back (RB) drive motor:        "rightBack"
  */
-public abstract class jerseyGirlHardwareMap extends LinearOpMode
-{
+public abstract class jerseyGirlHardwareMap extends LinearOpMode {
     /* Public OpMode members. */
     // CHAWKS: The Robot Parts need to be established here
-    public DcMotor  leftFront   = null;
-    public DcMotor  rightFront  = null;
-    public DcMotor  leftBack   = null;
-    public DcMotor  rightBack  = null;
+    public DcMotor leftFront = null;
+    public DcMotor rightFront = null;
+    public DcMotor leftBack = null;
+    public DcMotor rightBack = null;
     static final double THRESHOLD = 1.5;
     BNO055IMU imu;
     /////////////////////////////////////
 
     /* local OpMode members. */
-    HardwareMap hwMap           =  null;
-    private ElapsedTime period  = new ElapsedTime();
+    HardwareMap hwMap = null;
+    private ElapsedTime period = new ElapsedTime();
     /* CHAWKS: Call and declare the robot here */
-    private ElapsedTime     runtime = new ElapsedTime();
+    private ElapsedTime runtime = new ElapsedTime();
+    private DcMotor leftFront1;
 
     /* Constructor */
-    public jerseyGirlHardwareMap(){
+    public jerseyGirlHardwareMap() {
 
     }
 
-    public static final double     COUNTS_PER_MOTOR_REV    = 288 ;    // eg: Rev Core Hex Motor Encoder
-    public static final double     DRIVE_GEAR_REDUCTION    = 1.0;     // This is < 1.0 if geared UP
-    public static final double     WHEEL_DIAMETER_INCHES   = 3.5 ;     // For figuring circumference
-    public static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
+    public static final double COUNTS_PER_MOTOR_REV = 288;    // eg: Rev Core Hex Motor Encoder
+    public static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
+    public static final double WHEEL_DIAMETER_INCHES = 3.5;     // For figuring circumference
+    public static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * Math.PI);
-    public static final double     DRIVE_SPEED             = 1;
-    public static final double     TURN_SPEED              = 1;
+    public static final double DRIVE_SPEED = 1;
+    public static final double TURN_SPEED = 1;
 
     // Initialize standard Hardware interfaces
     /*
@@ -77,8 +78,8 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode
             CHAWKS: The deviceName should ALWAYS ALWAYS ALWAYS
                     match the part name to avoid confusion
          */
-         leftFront  = hwMap.get(DcMotor.class, "leftFront");
-         rightFront  = hwMap.get(DcMotor.class, "rightFront");
+        leftFront = hwMap.get(DcMotor.class, "leftFront");
+        rightFront = hwMap.get(DcMotor.class, "rightFront");
         leftBack = hwMap.get(DcMotor.class, "leftBack");
         rightBack = hwMap.get(DcMotor.class, "rightBack");
 //Threshold for Gyro turning so that we will not continuously attempt to reach an exact value
@@ -88,8 +89,8 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode
         /*
             CHAWKS: Why are we reversing the Right Wheels?
          */
-      leftFront.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
-        rightFront.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
+        leftFront1.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
+        rightFront.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
         leftBack.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         rightBack.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
 
@@ -107,18 +108,23 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode
             CHAWKS: Encoder Exercise!
          */
 
-        leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
 
-        parameters.mode           = BNO055IMU.SensorMode.IMU;
-        parameters.angleUnit      = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit      = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.mode = BNO055IMU.SensorMode.IMU;
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
         parameters.loggingEnabled = false;
         //get and initialize IMU
         imu = hwMap.get(BNO055IMU.class, "imu");
@@ -126,6 +132,7 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode
         imu.initialize(parameters);
 
     }
+
     /*
      *  CHAWKS: It's a METHOD!!!
      *
@@ -136,20 +143,19 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode
      *  2) Move runs out of time
      *  3) Driver stops the opmode running.
      */
-    public void gyroTurn (double power, double target)
-    {
+    public void gyroTurn(double power, double target) {
         Orientation angles;
         double error;
-        double k = 6/360.0;
-        double kInt = 3/3600.0;
+        double k = 6 / 360.0;
+        double kInt = 3 / 3600.0;
         double eInt = 0;
         double prevTime = System.currentTimeMillis();
         double globalAngle = 0;
         double lastAngle = 0;
         double deltaAngle = 0;
-        while(opModeIsActive()) {
+        while (opModeIsActive()) {
             double currentTime = System.currentTimeMillis();
-            double loopTime = (currentTime - prevTime)/1000.0; // In seconds
+            double loopTime = (currentTime - prevTime) / 1000.0; // In seconds
             prevTime = currentTime;
             angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
             //finds the angle given by the imu [-180, 180]
@@ -157,10 +163,9 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode
             deltaAngle = angle - lastAngle;
 
             //adjusts the change in angle (deltaAngle) to be the actual change in angle
-            if (deltaAngle < -180){
+            if (deltaAngle < -180) {
                 deltaAngle += 360;
-            }
-            else if (deltaAngle > 180){
+            } else if (deltaAngle > 180) {
                 deltaAngle -= 360;
             }
             globalAngle += deltaAngle;
@@ -168,12 +173,12 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode
 
             error = target - globalAngle;
             eInt += loopTime * error;
-            telemetry.addData("Heading",angles.firstAngle+" degrees");
-            telemetry.addData("GlobalAngle",globalAngle+" degrees");
-            telemetry.addData("Error",error+" degrees");
-            telemetry.addData("Loop time: ",loopTime+" ms");
+            telemetry.addData("Heading", angles.firstAngle + " degrees");
+            telemetry.addData("GlobalAngle", globalAngle + " degrees");
+            telemetry.addData("Error", error + " degrees");
+            telemetry.addData("Loop time: ", loopTime + " ms");
             telemetry.update();
-            if (error == 0){
+            if (error == 0) {
                 stopMotors();
                 break;
             }
@@ -186,11 +191,11 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode
         Orientation angles;
         double startAngle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
         double error;
-        double k = 3/360.0;
-        int leftFrontTarget = leftFront.getCurrentPosition() + (int)(distance * COUNTS_PER_INCH);
-        int rightFrontTarget = rightFront.getCurrentPosition() + (int)(distance * COUNTS_PER_INCH);
-        int leftBackTarget = leftBack.getCurrentPosition() + (int)(distance * COUNTS_PER_INCH);
-        int rightBackTarget = rightBack.getCurrentPosition() + (int)(distance * COUNTS_PER_INCH);
+        double k = 3 / 360.0;
+        int leftFrontTarget = leftFront.getCurrentPosition() + (int) (distance * COUNTS_PER_INCH);
+        int rightFrontTarget = rightFront.getCurrentPosition() + (int) (distance * COUNTS_PER_INCH);
+        int leftBackTarget = leftBack.getCurrentPosition() + (int) (distance * COUNTS_PER_INCH);
+        int rightBackTarget = rightBack.getCurrentPosition() + (int) (distance * COUNTS_PER_INCH);
 
         while (opModeIsActive() &&
                 (power > 0 && leftFront.getCurrentPosition() < leftFrontTarget && rightFront.getCurrentPosition() < rightFrontTarget && leftBack.getCurrentPosition() < leftBackTarget && rightBack.getCurrentPosition() < rightBackTarget) ||
@@ -200,11 +205,11 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode
             //finds the angle given by the imu [-180, 180]
             double angle = angles.firstAngle;
             error = startAngle - angle;
-            telemetry.addData("firstAngle",angles.firstAngle+" degrees");
-            telemetry.addData("leftFront ",leftFront.getCurrentPosition());
-            telemetry.addData("rightFront ",rightFront.getCurrentPosition());
-            telemetry.addData("leftBack ",leftBack.getCurrentPosition());
-            telemetry.addData("rightBack ",rightBack.getCurrentPosition());
+            telemetry.addData("firstAngle", angles.firstAngle + " degrees");
+            telemetry.addData("leftFront ", leftFront.getCurrentPosition());
+            telemetry.addData("rightFront ", rightFront.getCurrentPosition());
+            telemetry.addData("leftBack ", leftBack.getCurrentPosition());
+            telemetry.addData("rightBack ", rightBack.getCurrentPosition());
 
             telemetry.update();
             leftFront.setPower((power - (error * k)));
@@ -216,7 +221,7 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode
         stopMotors();
     }
 
-    public void goBackward(double power, int distance){
+    public void goBackward(double power, int distance) {
         goForward(-power, -distance);
     }
 
@@ -226,6 +231,7 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode
         leftBack.setPower(-power);
         rightBack.setPower(power);
     }
+
     public void turnRight(double power) {
         leftFront.setPower(power);
         rightFront.setPower(-power);
@@ -236,19 +242,19 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode
     public void strafeLeft(double power, int distance) {
         Orientation angles;
         double error;
-        double k = 3/360.0;
+        double k = 3 / 360.0;
         double startAngle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-        int leftFrontTarget = leftFront.getCurrentPosition() - (int)(distance * COUNTS_PER_INCH);
-        int rightFrontTarget = rightFront.getCurrentPosition() + (int)(distance * COUNTS_PER_INCH);
-        int leftBackTarget = leftBack.getCurrentPosition() + (int)(distance * COUNTS_PER_INCH);
-        int rightBackTarget = rightBack.getCurrentPosition() - (int)(distance * COUNTS_PER_INCH);
+        int leftFrontTarget = leftFront.getCurrentPosition() - (int) (distance * COUNTS_PER_INCH);
+        int rightFrontTarget = rightFront.getCurrentPosition() + (int) (distance * COUNTS_PER_INCH);
+        int leftBackTarget = leftBack.getCurrentPosition() + (int) (distance * COUNTS_PER_INCH);
+        int rightBackTarget = rightBack.getCurrentPosition() - (int) (distance * COUNTS_PER_INCH);
         leftFront.setTargetPosition(leftFrontTarget);
         rightFront.setTargetPosition(rightFrontTarget);
         leftBack.setTargetPosition(leftBackTarget);
         rightBack.setTargetPosition(rightBackTarget);
 
         while (opModeIsActive()
-                &&(leftFront.getCurrentPosition() > leftFrontTarget && rightFront.getCurrentPosition() < rightFrontTarget && leftBack.getCurrentPosition() < leftBackTarget && rightBack.getCurrentPosition() > rightBackTarget)) {
+                && (leftFront.getCurrentPosition() > leftFrontTarget && rightFront.getCurrentPosition() < rightFrontTarget && leftBack.getCurrentPosition() < leftBackTarget && rightBack.getCurrentPosition() > rightBackTarget)) {
             angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
             //finds the angle given by the imu [-180, 180]
             double angle = angles.firstAngle;
@@ -257,9 +263,9 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode
             rightFront.setPower((power + (error * k)));
             leftBack.setPower((power - (error * k)));
             rightBack.setPower(-(power - (error * k)));
-            telemetry.addData("error: ",error);
+            telemetry.addData("error: ", error);
             telemetry.addData("leftfront dest: ", leftFrontTarget);
-            telemetry.addData("leftFront pos: ",leftFront.getCurrentPosition());
+            telemetry.addData("leftFront pos: ", leftFront.getCurrentPosition());
 
 
             telemetry.update();
@@ -271,19 +277,19 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode
     public void strafeRight(double power, int distance) {
         Orientation angles;
         double error;
-        double k = 3/360.0;
+        double k = 3 / 360.0;
         double startAngle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-        int leftFrontTarget = leftFront.getCurrentPosition() + (int)(distance * COUNTS_PER_INCH);
-        int rightFrontTarget = rightFront.getCurrentPosition() - (int)(distance * COUNTS_PER_INCH);
-        int leftBackTarget = leftBack.getCurrentPosition() - (int)(distance * COUNTS_PER_INCH);
-        int rightBackTarget = rightBack.getCurrentPosition() + (int)(distance * COUNTS_PER_INCH);
+        int leftFrontTarget = leftFront.getCurrentPosition() + (int) (distance * COUNTS_PER_INCH);
+        int rightFrontTarget = rightFront.getCurrentPosition() - (int) (distance * COUNTS_PER_INCH);
+        int leftBackTarget = leftBack.getCurrentPosition() - (int) (distance * COUNTS_PER_INCH);
+        int rightBackTarget = rightBack.getCurrentPosition() + (int) (distance * COUNTS_PER_INCH);
         leftFront.setTargetPosition(leftFrontTarget);
         rightFront.setTargetPosition(rightFrontTarget);
         leftBack.setTargetPosition(leftBackTarget);
         rightBack.setTargetPosition(rightBackTarget);
 
         while (opModeIsActive()
-                &&(leftFront.getCurrentPosition() < leftFrontTarget && rightFront.getCurrentPosition() > rightFrontTarget && leftBack.getCurrentPosition() > leftBackTarget && rightBack.getCurrentPosition() < rightBackTarget)) {
+                && (leftFront.getCurrentPosition() < leftFrontTarget && rightFront.getCurrentPosition() > rightFrontTarget && leftBack.getCurrentPosition() > leftBackTarget && rightBack.getCurrentPosition() < rightBackTarget)) {
             angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
             //finds the angle given by the imu [-180, 180]
             double angle = angles.firstAngle;
@@ -292,9 +298,9 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode
             rightFront.setPower(-(power - (error * k)));
             leftBack.setPower(-(power + (error * k)));
             rightBack.setPower((power + (error * k)));
-            telemetry.addData("error: ",error);
+            telemetry.addData("error: ", error);
             telemetry.addData("leftfront dest: ", leftFrontTarget);
-            telemetry.addData("leftFront pos: ",leftFront.getCurrentPosition());
+            telemetry.addData("leftFront pos: ", leftFront.getCurrentPosition());
 
 
             telemetry.update();
@@ -302,6 +308,7 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode
         }
         stopMotors();
     }
+
     public void encoderDrive(double speed,
                              double leftInches, double rightInches,
                              double timeoutS) {
@@ -316,8 +323,8 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftTarget = leftBack.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newRightTarget = rightBack.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            newLeftTarget = leftBack.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            newRightTarget = rightBack.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
             leftBack.setTargetPosition(newLeftTarget);
             rightBack.setTargetPosition(newRightTarget);
 
@@ -341,8 +348,8 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode
                     (leftBack.isBusy() && rightBack.isBusy())) {
 
                 // Display it for the driver.
-                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
-                telemetry.addData("Path2",  "Running at %7d :%7d",
+                telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
+                telemetry.addData("Path2", "Running at %7d :%7d",
                         leftBack.getCurrentPosition(),
                         rightBack.getCurrentPosition());
                 telemetry.update();
@@ -360,6 +367,7 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode
             //  sleep(250);   // optional pause after each move
         }
     }
+
     public void stopMotors() {
         leftFront.setPower(0);
         leftBack.setPower(0);
