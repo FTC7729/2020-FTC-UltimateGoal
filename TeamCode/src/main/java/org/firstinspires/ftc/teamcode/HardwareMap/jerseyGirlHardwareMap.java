@@ -191,11 +191,11 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode {
         Orientation angles;
         double startAngle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
         double error;
-        double k = 3 / 360.0;
-        int leftFrontTarget = leftFront.getCurrentPosition() + (int) (distance * COUNTS_PER_INCH);
-        int rightFrontTarget = rightFront.getCurrentPosition() + (int) (distance * COUNTS_PER_INCH);
-        int leftBackTarget = leftBack.getCurrentPosition() + (int) (distance * COUNTS_PER_INCH);
-        int rightBackTarget = rightBack.getCurrentPosition() + (int) (distance * COUNTS_PER_INCH);
+        double k = 3/360.0;
+        int leftFrontTarget = leftFront.getCurrentPosition() + (int)(distance * COUNTS_PER_INCH);
+        int rightFrontTarget = rightFront.getCurrentPosition() + (int)(distance * COUNTS_PER_INCH);
+        int leftBackTarget = leftBack.getCurrentPosition() + (int)(distance * COUNTS_PER_INCH);
+        int rightBackTarget = rightBack.getCurrentPosition() + (int)(distance * COUNTS_PER_INCH);
 
         while (opModeIsActive() &&
                 (power > 0 && leftFront.getCurrentPosition() < leftFrontTarget && rightFront.getCurrentPosition() < rightFrontTarget && leftBack.getCurrentPosition() < leftBackTarget && rightBack.getCurrentPosition() < rightBackTarget) ||
@@ -205,22 +205,22 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode {
             //finds the angle given by the imu [-180, 180]
             double angle = angles.firstAngle;
             error = startAngle - angle;
-            telemetry.addData("firstAngle", angles.firstAngle + " degrees");
-            telemetry.addData("leftFront ", leftFront.getCurrentPosition());
-            telemetry.addData("rightFront ", rightFront.getCurrentPosition());
-            telemetry.addData("leftBack ", leftBack.getCurrentPosition());
-            telemetry.addData("rightBack ", rightBack.getCurrentPosition());
+            telemetry.addData("firstAngle",angles.firstAngle+" degrees");
+            telemetry.addData("leftFront ",leftFront.getCurrentPosition());
+            telemetry.addData("rightFront ",rightFront.getCurrentPosition());
+            telemetry.addData("leftBack ",leftBack.getCurrentPosition());
+            telemetry.addData("rightBack ",rightBack.getCurrentPosition());
 
             telemetry.update();
             leftFront.setPower((power - (error * k)));
             rightFront.setPower((power + (error * k)));
             leftBack.setPower((power - (error * k)));
             rightBack.setPower((power + (error * k)));
-
         }
         stopMotors();
-    }
 
+    }
+    
     public void goBackward(double power, int distance) {
         goForward(-power, -distance);
     }
