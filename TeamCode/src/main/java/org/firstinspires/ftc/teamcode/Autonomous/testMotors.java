@@ -97,7 +97,7 @@ public class testMotors extends jerseyGirlHardwareMap {
         if (state == 1){
             telemetry.addData("State","1");
             telemetry.update();
-           goForward(0.25,1200);
+           goForward(0.25,4800);
             state = 2;
         }
         
