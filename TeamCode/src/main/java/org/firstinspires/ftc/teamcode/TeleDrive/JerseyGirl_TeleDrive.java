@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 //@Disabled
 public class JerseyGirl_TeleDrive extends JerseyGirl_TeleDriveHandler {
 
+    double speedScale = 0.25;
+
     public void handleGamepad1(Gamepad gamepad){
        double rStickX;
        double rStickY;
@@ -19,9 +21,9 @@ public class JerseyGirl_TeleDrive extends JerseyGirl_TeleDriveHandler {
        double scaleDown;
 
 
-        rStickX = gamepad.right_stick_x;
-        rStickY = -gamepad.right_stick_y;
-        lStickX = gamepad.left_stick_x;
+        rStickX = gamepad.right_stick_x * speedScale;
+        rStickY = -gamepad.right_stick_y * speedScale;
+        lStickX = gamepad.left_stick_x * speedScale;
 
         targetAngle = (Math.atan2(rStickY, rStickX));
 
