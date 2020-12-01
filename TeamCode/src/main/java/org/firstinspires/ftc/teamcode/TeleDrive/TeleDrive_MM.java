@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
-public abstract class TeleDrive extends OpMode {
+public abstract class TeleDrive_MM extends OpMode {
     private DatagramSocket socket;
     private boolean canRunGamepadThread;
     private Thread gamepadHandler;

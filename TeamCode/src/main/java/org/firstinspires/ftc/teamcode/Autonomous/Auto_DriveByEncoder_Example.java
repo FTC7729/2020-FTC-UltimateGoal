@@ -71,7 +71,7 @@ public class Auto_DriveByEncoder_Example extends HardwareMap_Example {
                     Why is this good for the Drivers?
         */
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Status: ", "Hit [Init] to Initialize ze bot");    //
+        telemetry.addData("Status: ", "Hit [Init] to Initialize the bot!!! Go CHAWKS!");    //
         telemetry.update();
 
         /*
@@ -92,8 +92,18 @@ public class Auto_DriveByEncoder_Example extends HardwareMap_Example {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  48,  48, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-        encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+
+        //Instruction 1 - Drive Forward
+        encoderDrive(DRIVE_SPEED,  48,
+                    48, 5.0);  // S1: Forward 48 Inches with 5 Sec timeout
+
+        //Instruction 2 - Turn Right
+        encoderDrive(TURN_SPEED,
+                12,
+                -12,
+                4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+
+        //Instruction 3 - Backwards
         encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
 
         sleep(1000);     // pause
