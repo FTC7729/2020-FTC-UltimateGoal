@@ -34,7 +34,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
+import org.firstinspires.ftc.teamcode.HardwareMap.jerseyGirlHardwareMap;
 import org.firstinspires.ftc.teamcode.HardwareMap.HardwareMap_Example;
 
 //import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
@@ -49,7 +49,7 @@ import org.firstinspires.ftc.teamcode.HardwareMap.HardwareMap_Example;
 @Autonomous(name="Red 1 Park", group="Red")
 // CHAWKS: What does @Disabled mean? what happens if we remove it?
 //@Disabled
-public class r1_park extends HardwareMap_Example {
+public class r1_park extends jerseyGirlHardwareMap {
 
 
 
@@ -97,34 +97,26 @@ public class r1_park extends HardwareMap_Example {
         if (state == 1){
             telemetry.addData("State","1");
             telemetry.update();
-            encoderDrive(DRIVE_SPEED,12,12, 30);
-            //facing red alliance
+            strafeRight(.25,12);
+            //strafe right one foot
             state = 2;
         }
 
         if (state == 2) {
             telemetry.addData("State","2");
             telemetry.update();
-            encoderDrive(TURN_SPEED,-9,9, 30);
-            //turn 90 degrees counterclockwise
+            goForward(.25,72);
+            //go forward 6 feet
             state = 3;
         }
 
         if (state == 3) {
             telemetry.addData("State", "3");
             telemetry.update();
-            encoderDrive(DRIVE_SPEED,72,72,30);
-            //move forward six feet
-            state = 4;
+            stopMotors();
+            //state = 4;
         }
 
-        if (state == 4) {
-            telemetry.addData("State","4");
-            telemetry.update();
-            rightBack.setPower(0);
-            leftBack.setPower(0);
-            //stop
 
-        }
     }
 }
