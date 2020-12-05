@@ -53,7 +53,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Motor channel:  Left Back (LB) drive motor:        "leftBack"
  * Motor channel:  Right Back (RB) drive motor:        "rightBack"
  */
-abstract public class HardwareMap_Example extends LinearOpMode
+
+public abstract class HardwareMap_Example extends LinearOpMode
 {
     /* Public OpMode members. */
     // CHAWKS: The Robot Parts need to be established here
@@ -65,26 +66,24 @@ abstract public class HardwareMap_Example extends LinearOpMode
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
-    //private ElapsedTime period  = new ElapsedTime();
 
+    private ElapsedTime period  = new ElapsedTime();
+    /* CHAWKS: Call and declare the robot here */
     private ElapsedTime     runtime = new ElapsedTime();
 
-
-    /*
-        CHAWKS: All the values can be moved to HardwareMap? Are these common values?
-     */
-    public static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
-    public static final double     DRIVE_GEAR_REDUCTION    = 2.0 ;     // This is < 1.0 if geared UP
-    public static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
-    public static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-            (WHEEL_DIAMETER_INCHES * 3.1415);
-    public static final double     DRIVE_SPEED             = 0.6;
-    public static final double     TURN_SPEED              = 0.5;
 
     /* Constructor */
     public HardwareMap_Example(){
 
     }
+
+    public static final double     COUNTS_PER_MOTOR_REV    = 288 ;    // eg: Rev Core Hex Motor Encoder
+    public static final double     DRIVE_GEAR_REDUCTION    = 1.0;     // This is < 1.0 if geared UP
+    public static final double     WHEEL_DIAMETER_INCHES   = 3.5 ;     // For figuring circumference
+    public static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
+            (WHEEL_DIAMETER_INCHES * Math.PI);
+    public static final double     DRIVE_SPEED             = 1;
+    public static final double     TURN_SPEED              = 1;
 
     // Initialize standard Hardware interfaces
     /*
@@ -133,12 +132,12 @@ abstract public class HardwareMap_Example extends LinearOpMode
             CHAWKS: Encoder Exercise!
          */
 
-        //leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
 
@@ -152,6 +151,7 @@ abstract public class HardwareMap_Example extends LinearOpMode
      *  2) Move runs out of time
      *  3) Driver stops the opmode running.
      */
+
     public void encoderDrive(double speed,
                              double leftInches, double rightInches,
                              double timeoutS) {
@@ -209,5 +209,6 @@ abstract public class HardwareMap_Example extends LinearOpMode
             //  sleep(250);   // optional pause after each move
         }
     }
+
  }
 

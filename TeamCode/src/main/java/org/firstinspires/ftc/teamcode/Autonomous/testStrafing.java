@@ -31,15 +31,14 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-//import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
-
-// List where other files are located that are used in this OpMode
 import org.firstinspires.ftc.teamcode.HardwareMap.HardwareMap_Example;
+import org.firstinspires.ftc.teamcode.HardwareMap.jerseyGirlHardwareMap;
+//import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
+// List where other files are located that are used in this OpMode
 
 /**
  * In this example:
@@ -47,12 +46,16 @@ import org.firstinspires.ftc.teamcode.HardwareMap.HardwareMap_Example;
  *
  */
 // CHAWKS: Name it something useful!
-@Autonomous(name="RedZone Right 1 Test", group="RedTest")
+@Autonomous(name="testStrafing", group="Blue_Autonomous")
 // CHAWKS: What does @Disabled mean? what happens if we remove it?
 //@Disabled
+public class testStrafing extends jerseyGirlHardwareMap {
 
-public class Auto_DriveByEncoder_Example extends HardwareMap_Example {
 
+
+    /*
+        CHAWKS: All the values can be moved to HardwareMap? Are these common values?
+     */
 
     /*
         CHAWKS: It has begun!!! Run the OpMode!!! Make the robot execute all our code!!!
@@ -63,54 +66,69 @@ public class Auto_DriveByEncoder_Example extends HardwareMap_Example {
     public void runOpMode() {
 
 
-         // Initialize the drive system variables.
-         // The init() method of the hardware class does all the work here
+        // Initialize the drive system variables.
+        // The init() method of the hardware class does all the work here
+        // Initialize the drive system variables.
+        // The init() method of the hardware class does all the work here
 
         /*
             CHAWKS: On Driver Station, telemetry will be display!
                     Why is this good for the Drivers?
         */
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Status: ", "Hit [Init] to Initialize the bot!!! Go CHAWKS!");    //
+        telemetry.addData("Status: ", "Hit [Init] to Initialize ze bot");    //
         telemetry.update();
 
         /*
             CHAWKS: Step 0. Initialize OUR ROBOT
         */
         // MUST HAVE THIS LINE BELOW
-        init(hardwareMap);
-
-        // Send telemetry message to "Driver Station" signify robot waiting;
-        telemetry.addData("Status: ", "Hit [PLAY] to start!");    //
-        telemetry.update();
-
-        /*
-            CHAWKS: Step 1. Hit Play to run through the code!
-        */
-        // MUST HAVE THIS LINE BELOW
-        waitForStart();
-
-        // Step through each leg of the path,
-        // Note: Reverse movement is obtained by setting a negative distance (not speed)
-
-        //Instruction 1 - Drive Forward
-        encoderDrive(DRIVE_SPEED,  48,
-                    48, 5.0);  // S1: Forward 48 Inches with 5 Sec timeout
-
-        //Instruction 2 - Turn Right
-        encoderDrive(TURN_SPEED,
-                12,
-                -12,
-                4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
-
-        //Instruction 3 - Backwards
-        encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
-
-        sleep(1000);     // pause
-
-        telemetry.addData("Path", "Complete!");
-        telemetry.update();
-    }
 
 
-}
+        int state = 0;
+        if (state == 0) {
+            //init robot
+            init(hardwareMap);
+            waitForStart();
+            state = 1;
+        }
+
+        if (state == 1) {
+            telemetry.addData("State", "1");
+            telemetry.update();
+           goForward(0.1, 12);
+            sleep(1000);
+            state = 2;
+        }
+
+
+        if (state == 2) {
+            telemetry.addData("State", "2");
+            telemetry.update();
+            goBackward(0.1, 12);
+            sleep(1000);
+            state = 3;
+        }
+        if (state == 3) {
+            telemetry.addData("State", "2");
+            telemetry.update();
+            strafeLeft(0.1, 12);
+            sleep(1000);
+            state = 4;
+
+        }
+        if (state == 4) {
+            telemetry.addData("State", "2");
+            telemetry.update();
+            strafeRight(0.1, 12);
+            sleep(1000);
+            state = 5;
+
+        }
+        if (state == 4) {
+            telemetry.addData("State", "2");
+            telemetry.update();
+            stopMotors();
+            state = 5;
+        }
+    }}
