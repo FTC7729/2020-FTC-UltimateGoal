@@ -54,7 +54,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Motor channel:  Right Back (RB) drive motor:        "rightBack"
  */
 
-public abstract class HardwareMap_Example extends LinearOpMode
+abstract public class HardwareMap_Example extends LinearOpMode
+
 {
     /* Public OpMode members. */
     // CHAWKS: The Robot Parts need to be established here
@@ -71,11 +72,11 @@ public abstract class HardwareMap_Example extends LinearOpMode
     /* CHAWKS: Call and declare the robot here */
     private ElapsedTime     runtime = new ElapsedTime();
 
-
     /* Constructor */
     public HardwareMap_Example(){
 
     }
+
 
     public static final double     COUNTS_PER_MOTOR_REV    = 288 ;    // eg: Rev Core Hex Motor Encoder
     public static final double     DRIVE_GEAR_REDUCTION    = 1.0;     // This is < 1.0 if geared UP
@@ -84,6 +85,7 @@ public abstract class HardwareMap_Example extends LinearOpMode
             (WHEEL_DIAMETER_INCHES * Math.PI);
     public static final double     DRIVE_SPEED             = 1;
     public static final double     TURN_SPEED              = 1;
+
 
     // Initialize standard Hardware interfaces
     /*
@@ -112,10 +114,10 @@ public abstract class HardwareMap_Example extends LinearOpMode
             CHAWKS: Why are we reversing the Right Wheels?
          */
 
-        leftFront.setDirection(DcMotor.Direction.REVERSE);
-        rightFront.setDirection(DcMotor.Direction.FORWARD);
-        leftBack.setDirection(DcMotor.Direction.FORWARD);
-        rightBack.setDirection(DcMotor.Direction.REVERSE);
+        //leftFront.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
+        //rightFront.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        leftBack.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
+        rightBack.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
 
 
         // Set all motors to ZERO! power
@@ -132,14 +134,17 @@ public abstract class HardwareMap_Example extends LinearOpMode
             CHAWKS: Encoder Exercise!
          */
 
-        leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        //leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
+
 
     /*
      *  CHAWKS: It's a METHOD!!!
