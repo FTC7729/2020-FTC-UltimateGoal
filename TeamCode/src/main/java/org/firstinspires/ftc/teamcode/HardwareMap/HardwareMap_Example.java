@@ -101,6 +101,7 @@ abstract public class HardwareMap_Example extends LinearOpMode
                     match the part name to avoid confusion
          */
 
+
         leftBack = hwMap.get(DcMotor.class, "leftBack");
         rightBack = hwMap.get(DcMotor.class, "rightBack");
 
@@ -112,8 +113,9 @@ abstract public class HardwareMap_Example extends LinearOpMode
 
         //leftFront.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         //rightFront.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
-        leftBack.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
-        rightBack.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
+        leftBack.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
+        rightBack.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+
 
         // Set all motors to ZERO! power
         /*
@@ -129,19 +131,14 @@ abstract public class HardwareMap_Example extends LinearOpMode
             CHAWKS: Encoder Exercise!
          */
 
-
         leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
         leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
-
-
-
     /*
      *  CHAWKS: It's a METHOD!!!
      *
@@ -152,7 +149,6 @@ abstract public class HardwareMap_Example extends LinearOpMode
      *  2) Move runs out of time
      *  3) Driver stops the opmode running.
      */
-
     public void encoderDrive(double speed,
                              double leftInches, double rightInches,
                              double timeoutS) {
@@ -167,8 +163,8 @@ abstract public class HardwareMap_Example extends LinearOpMode
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftTarget = leftBack.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
-            newRightTarget = rightBack.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+            newLeftTarget = leftBack.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
+            newRightTarget = rightBack.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
             leftBack.setTargetPosition(newLeftTarget);
             rightBack.setTargetPosition(newRightTarget);
 
@@ -192,8 +188,8 @@ abstract public class HardwareMap_Example extends LinearOpMode
                     (leftBack.isBusy() && rightBack.isBusy())) {
 
                 // Display it for the driver.
-                telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
-                telemetry.addData("Path2", "Running at %7d :%7d",
+                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
+                telemetry.addData("Path2",  "Running at %7d :%7d",
                         leftBack.getCurrentPosition(),
                         rightBack.getCurrentPosition());
                 telemetry.update();
@@ -206,6 +202,9 @@ abstract public class HardwareMap_Example extends LinearOpMode
             // Turn off RUN_TO_POSITION
             leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            //  sleep(250);   // optional pause after each move
+
         }
     }
 
