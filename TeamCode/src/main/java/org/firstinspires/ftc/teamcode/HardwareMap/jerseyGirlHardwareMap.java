@@ -18,6 +18,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 /**
  * This is NOT an opmode.
+<<<<<<< HEAD
 
  *
  * This hardware class assumes the following device names have been configured on the robot:
@@ -29,15 +30,31 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
  *   (LB)--------(RB)
  *        back
  *
+=======
+ * <p>
+ * This hardware class assumes the following device names have been configured on the robot:
+ * CHAWKS:  Naming convention is camel case!
+ * <p>
+ * front
+ * (LF)--------(RF)
+ * |    robot   |
+ * (LB)--------(RB)
+ * back
+ * <p>
+>>>>>>> origin/r1_park
  * Motor channel:  Left Front (LF) drive motor:        "leftFront"
  * Motor channel:  Right Front (RF) drive motor:        "rightFront"
  * Motor channel:  Left Back (LB) drive motor:        "leftBack"
  * Motor channel:  Right Back (RB) drive motor:        "rightBack"
  */
+<<<<<<< HEAD
 
 public abstract class jerseyGirlHardwareMap extends LinearOpMode
 {
 
+=======
+public abstract class jerseyGirlHardwareMap extends LinearOpMode {
+>>>>>>> origin/r1_park
     /* Public OpMode members. */
     // CHAWKS: The Robot Parts need to be established here
     public DcMotor leftFront = null;
@@ -380,5 +397,8 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode
     }
 }
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> origin/r1_park

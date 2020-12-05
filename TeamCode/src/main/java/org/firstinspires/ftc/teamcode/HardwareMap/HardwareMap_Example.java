@@ -55,12 +55,12 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 
 abstract public class HardwareMap_Example extends LinearOpMode
-
 {
     /* Public OpMode members. */
     // CHAWKS: The Robot Parts need to be established here
-    public DcMotor  leftFront   = null;
-    public DcMotor  rightFront  = null;
+    // public DcMotor  leftFront   = null;
+    // public DcMotor  rightFront  = null;
+
     public DcMotor  leftBack   = null;
     public DcMotor  rightBack  = null;
     /////////////////////////////////////
@@ -76,7 +76,6 @@ abstract public class HardwareMap_Example extends LinearOpMode
     public HardwareMap_Example(){
 
     }
-
 
     public static final double     COUNTS_PER_MOTOR_REV    = 288 ;    // eg: Rev Core Hex Motor Encoder
     public static final double     DRIVE_GEAR_REDUCTION    = 1.0;     // This is < 1.0 if geared UP
@@ -102,9 +101,6 @@ abstract public class HardwareMap_Example extends LinearOpMode
                     match the part name to avoid confusion
          */
 
-        leftFront  = hwMap.get(DcMotor.class, "leftFront");
-        rightFront  = hwMap.get(DcMotor.class, "rightFront");
-
         leftBack = hwMap.get(DcMotor.class, "leftBack");
         rightBack = hwMap.get(DcMotor.class, "rightBack");
 
@@ -118,7 +114,6 @@ abstract public class HardwareMap_Example extends LinearOpMode
         //rightFront.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
         leftBack.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         rightBack.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
-
 
         // Set all motors to ZERO! power
         /*
@@ -135,8 +130,8 @@ abstract public class HardwareMap_Example extends LinearOpMode
          */
 
 
-        //leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
@@ -144,6 +139,7 @@ abstract public class HardwareMap_Example extends LinearOpMode
         rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
+
 
 
     /*
@@ -171,8 +167,8 @@ abstract public class HardwareMap_Example extends LinearOpMode
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftTarget = leftBack.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newRightTarget = rightBack.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            newLeftTarget = leftBack.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            newRightTarget = rightBack.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
             leftBack.setTargetPosition(newLeftTarget);
             rightBack.setTargetPosition(newRightTarget);
 
@@ -196,8 +192,8 @@ abstract public class HardwareMap_Example extends LinearOpMode
                     (leftBack.isBusy() && rightBack.isBusy())) {
 
                 // Display it for the driver.
-                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
-                telemetry.addData("Path2",  "Running at %7d :%7d",
+                telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
+                telemetry.addData("Path2", "Running at %7d :%7d",
                         leftBack.getCurrentPosition(),
                         rightBack.getCurrentPosition());
                 telemetry.update();
@@ -210,10 +206,9 @@ abstract public class HardwareMap_Example extends LinearOpMode
             // Turn off RUN_TO_POSITION
             leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-            //  sleep(250);   // optional pause after each move
         }
     }
+
 
  }
 
