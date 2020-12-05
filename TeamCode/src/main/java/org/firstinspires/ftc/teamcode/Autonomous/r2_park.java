@@ -35,6 +35,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import org.firstinspires.ftc.teamcode.HardwareMap.jerseyGirlHardwareMap;
 
 import org.firstinspires.ftc.teamcode.HardwareMap.HardwareMap_Example;
 
@@ -50,7 +51,7 @@ import org.firstinspires.ftc.teamcode.HardwareMap.HardwareMap_Example;
 @Autonomous(name="r2_park", group="Red")
 // CHAWKS: What does @Disabled mean? what happens if we remove it?
 
-public class r2_park extends HardwareMap_Example {
+public class r2_park extends jerseyGirlHardwareMap {
  /*
         CHAWKS: All the values can be moved to HardwareMap? Are these common values?
      */
@@ -95,34 +96,27 @@ public class r2_park extends HardwareMap_Example {
         if (state == 1){
             telemetry.addData("State","1");
             telemetry.update();
-            encoderDrive(DRIVE_SPEED,12,12, 30);
-            //facing blue alliance move forward one foot
+            strafeLeft(.25,12);
+            //strafe right 1 foot
             state = 2;
         }
 
         if (state == 2) {
             telemetry.addData("State","2");
             telemetry.update();
-            encoderDrive(TURN_SPEED,9,-9, 30);
-            //turn 90 degrees to the right
+            goForward(.25,72);
+            //go forward 6 feet
             state = 3;
         }
 
         if (state == 3) {
             telemetry.addData("State", "3");
             telemetry.update();
-            encoderDrive(DRIVE_SPEED,72,72,30);
-            //move forward six feet
-            state = 4;
-        }
-
-        if (state == 4) {
-            telemetry.addData("State","4");
-            telemetry.update();
-            rightBack.setPower(0);
-            leftBack.setPower(0);
+            stopMotors();
             //stop
-
+            //state = 4;
         }
+
+
     }
 }
