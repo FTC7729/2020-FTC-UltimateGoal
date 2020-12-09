@@ -101,7 +101,7 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode {
 
     // Since ImageTarget trackables use mm to specifiy their dimensions, we must use mm for all the physical dimension.
     // We will define some constants and conversions here
-    private static final float mmPerInch        = 25.4f;
+    public static final float mmPerInch        = 25.4f;
     private static final float mmTargetHeight   = (6) * mmPerInch;          // the height of the center of the target image above the floor
 
     // Constants for perimeter targets
@@ -109,12 +109,13 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode {
     private static final float quadField  = 36 * mmPerInch;
 
     // Class Members
-    private OpenGLMatrix lastLocation = null;
+    public OpenGLMatrix lastLocation = null;
     private VuforiaLocalizer vuforia = null;
-    private boolean targetVisible = false;
+    public boolean targetVisible = false;
     private float phoneXRotate    = 0;
     private float phoneYRotate    = 0;
     private float phoneZRotate    = 0;
+    public   List<VuforiaTrackable> allTrackables;
     // Initialize standard Hardware interfaces
     /*
         CHAWKS: On Driver Station - [INIT] - Button //
