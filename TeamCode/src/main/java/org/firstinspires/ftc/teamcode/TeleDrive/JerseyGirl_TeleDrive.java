@@ -19,14 +19,30 @@ public class JerseyGirl_TeleDrive extends JerseyGirl_TeleDriveHandler {
        double rotationPower;
        double maxPower;
        double scaleDown;
+       boolean dpadLeft;
+       boolean dpadRight;
+       boolean dpadUp;
+       boolean dpadDown;
 
 
         rStickX = gamepad.right_stick_x * speedScale;
         rStickY = -gamepad.right_stick_y * speedScale;
         lStickX = gamepad.left_stick_x * speedScale;
+        dpadLeft = gamepad.dpad_left;
+        dpadRight = gamepad.dpad_right;
+        dpadUp = gamepad.dpad_up;
+        dpadDown = gamepad.dpad_down;
 
         targetAngle = (Math.atan2(rStickY, rStickX));
-
+        if(dpadLeft){
+            strafeLeft(0.5);
+        } else if(dpadRight){
+            strafeRight(0.5);
+        } else if(dpadUp){
+            goForward(0.5);
+        } else if(dpadDown) {
+            goBackward(0.5);
+        }
         rotationPower = -lStickX;
         mag1 = Math.sqrt(Math.pow(rStickX, 2) + Math.pow(rStickY, 2)) * (Math.sin(targetAngle + Math.PI / 4));
         mag2 = Math.sqrt(Math.pow(rStickX, 2) + Math.pow(rStickY, 2)) * (Math.sin(targetAngle - Math.PI / 4));
