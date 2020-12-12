@@ -82,7 +82,7 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode {
 
     //Vuforia variables go here
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
-    private static final boolean PHONE_IS_PORTRAIT = false  ;
+    private static final boolean PHONE_IS_PORTRAIT = false;
 
     /*
      * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
@@ -101,21 +101,22 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode {
 
     // Since ImageTarget trackables use mm to specifiy their dimensions, we must use mm for all the physical dimension.
     // We will define some constants and conversions here
-    public static final float mmPerInch        = 25.4f;
-    private static final float mmTargetHeight   = (6) * mmPerInch;          // the height of the center of the target image above the floor
+    public static final float mmPerInch = 25.4f;
+    private static final float mmTargetHeight = (6) * mmPerInch;          // the height of the center of the target image above the floor
 
     // Constants for perimeter targets
     private static final float halfField = 72 * mmPerInch;
-    private static final float quadField  = 36 * mmPerInch;
+    private static final float quadField = 36 * mmPerInch;
 
     // Class Members
     public OpenGLMatrix lastLocation = null;
     private VuforiaLocalizer vuforia = null;
     public boolean targetVisible = false;
-    private float phoneXRotate    = 0;
-    private float phoneYRotate    = 0;
-    private float phoneZRotate    = 0;
-    public   List<VuforiaTrackable> allTrackables;
+    private float phoneXRotate = 0;
+    private float phoneYRotate = 0;
+    private float phoneZRotate = 0;
+    public List<VuforiaTrackable> allTrackables;
+
     // Initialize standard Hardware interfaces
     /*
         CHAWKS: On Driver Station - [INIT] - Button //
@@ -136,6 +137,8 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode {
         rightBack = hwMap.get(DcMotor.class, "rightBack");
 //Threshold for Gyro turning so that we will not continuously attempt to reach an exact value
 
+        //telemetry.addData("debug", "1");
+        //telemetry.update();
 
         // Set Direction/Motion for Motors
         /*
@@ -182,7 +185,8 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode {
         imu = hwMap.get(BNO055IMU.class, "imu");
 
         imu.initialize(parametersIMU);
-
+       // telemetry.addData("debug", "2");
+        //telemetry.update();
         //Vuforia init code goes here
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
@@ -190,7 +194,7 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode {
         // VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
-        parameters.cameraDirection   = CAMERA_CHOICE;
+        parameters.cameraDirection = CAMERA_CHOICE;
 
         // Make sure extended tracking is disabled for this example.
         parameters.useExtendedTracking = false;
@@ -215,7 +219,8 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode {
         // For convenience, gather together all the trackable objects in one easily-iterable collection */
         List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
         allTrackables.addAll(targetsUltimateGoal);
-
+        //telemetry.addData("debug", "3");
+        //telemetry.update();
         /**
          * In order for localization to work, we need to tell the system where each target is on the field, and
          * where the phone resides on the robot.  These specifications are in the form of <em>transformation matrices.</em>
@@ -234,6 +239,7 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode {
          *  coordinate system (the center of the field), facing up.
          */
 
+
         //Set the position of the perimeter targets with relation to origin (center of field)
         redAllianceTarget.setLocation(OpenGLMatrix
                 .translation(0, -halfField, mmTargetHeight)
@@ -244,15 +250,18 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode {
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 0)));
         frontWallTarget.setLocation(OpenGLMatrix
                 .translation(-halfField, 0, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0 , 90)));
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 90)));
 
         // The tower goal targets are located a quarter field length from the ends of the back perimeter wall.
         blueTowerGoalTarget.setLocation(OpenGLMatrix
                 .translation(halfField, quadField, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0 , -90)));
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90)));
         redTowerGoalTarget.setLocation(OpenGLMatrix
                 .translation(halfField, -quadField, mmTargetHeight)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90)));
+        //telemetry.addData("debug", "4");
+        //telemetry.update();
+
 
         //
         // Create a transformation matrix describing where the phone is on the robot.
@@ -269,6 +278,7 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode {
         // The two examples below assume that the camera is facing forward out the front of the robot.
 
         // We need to rotate the camera around it's long axis to bring the correct camera forward.
+
         if (CAMERA_CHOICE == BACK) {
             phoneYRotate = -90;
         } else {
@@ -277,14 +287,14 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode {
 
         // Rotate the phone vertical about the X axis if it's in portrait mode
         if (PHONE_IS_PORTRAIT) {
-            phoneXRotate = 90 ;
+            phoneXRotate = 90;
         }
 
         // Next, translate the camera lens to where it is on the robot.
         // In this example, it is centered (left to right), but forward of the middle of the robot, and above ground level.
-        final float CAMERA_FORWARD_DISPLACEMENT  = 0f * mmPerInch;   // eg: Camera is 4 Inches in front of robot center
+        final float CAMERA_FORWARD_DISPLACEMENT = 0f * mmPerInch;   // eg: Camera is 4 Inches in front of robot center
         final float CAMERA_VERTICAL_DISPLACEMENT = 7f * mmPerInch;   // eg: Camera is 8 Inches above ground
-        final float CAMERA_LEFT_DISPLACEMENT     = 1;     // eg: Camera is ON the robot's center line
+        final float CAMERA_LEFT_DISPLACEMENT = 1;     // eg: Camera is ON the robot's center line
 
         OpenGLMatrix robotFromCamera = OpenGLMatrix
                 .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)
@@ -308,6 +318,8 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode {
         // Tap the preview window to receive a fresh image.
 
         targetsUltimateGoal.activate();
+        //telemetry.addData("debug", "5");
+        //telemetry.update();
 
     }
 
@@ -369,11 +381,11 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode {
         Orientation angles;
         double startAngle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
         double error;
-        double k = 3/360.0;
-        int leftFrontTarget = leftFront.getCurrentPosition() + (int)(distance * COUNTS_PER_INCH);
-        int rightFrontTarget = rightFront.getCurrentPosition() + (int)(distance * COUNTS_PER_INCH);
-        int leftBackTarget = leftBack.getCurrentPosition() + (int)(distance * COUNTS_PER_INCH);
-        int rightBackTarget = rightBack.getCurrentPosition() + (int)(distance * COUNTS_PER_INCH);
+        double k = 3 / 360.0;
+        int leftFrontTarget = leftFront.getCurrentPosition() + (int) (distance * COUNTS_PER_INCH);
+        int rightFrontTarget = rightFront.getCurrentPosition() + (int) (distance * COUNTS_PER_INCH);
+        int leftBackTarget = leftBack.getCurrentPosition() + (int) (distance * COUNTS_PER_INCH);
+        int rightBackTarget = rightBack.getCurrentPosition() + (int) (distance * COUNTS_PER_INCH);
 
         while (opModeIsActive() &&
                 (power > 0 && leftFront.getCurrentPosition() < leftFrontTarget && rightFront.getCurrentPosition() < rightFrontTarget && leftBack.getCurrentPosition() < leftBackTarget && rightBack.getCurrentPosition() < rightBackTarget) ||
@@ -383,11 +395,11 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode {
             //finds the angle given by the imu [-180, 180]
             double angle = angles.firstAngle;
             error = startAngle - angle;
-            telemetry.addData("firstAngle",angles.firstAngle+" degrees");
-            telemetry.addData("leftFront ",leftFront.getCurrentPosition());
-            telemetry.addData("rightFront ",rightFront.getCurrentPosition());
-            telemetry.addData("leftBack ",leftBack.getCurrentPosition());
-            telemetry.addData("rightBack ",rightBack.getCurrentPosition());
+            telemetry.addData("firstAngle", angles.firstAngle + " degrees");
+            telemetry.addData("leftFront ", leftFront.getCurrentPosition());
+            telemetry.addData("rightFront ", rightFront.getCurrentPosition());
+            telemetry.addData("leftBack ", leftBack.getCurrentPosition());
+            telemetry.addData("rightBack ", rightBack.getCurrentPosition());
 
             telemetry.update();
             leftFront.setPower((power - (error * k)));
@@ -543,6 +555,9 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode {
             rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
             //  sleep(250);   // optional pause after each move
+            //telemetry.addData("debug", "6");
+            //telemetry.update();
+
         }
     }
 
@@ -551,6 +566,8 @@ public abstract class jerseyGirlHardwareMap extends LinearOpMode {
         leftBack.setPower(0);
         rightFront.setPower(0);
         rightBack.setPower(0);
+
     }
+
 }
 
