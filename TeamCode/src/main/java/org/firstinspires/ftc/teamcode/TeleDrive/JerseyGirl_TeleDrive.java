@@ -8,7 +8,29 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 public class JerseyGirl_TeleDrive extends JerseyGirl_TeleDriveHandler {
 
     double speedScale = 0.25;
+    public void goForward(double power) {
+        leftFront.setPower(power);
+        rightFront.setPower(power);
+        leftBack.setPower(power);
+        rightBack.setPower(power);
+    }
 
+    public void goBackward(double power){
+        goForward(-power);
+    }
+    public void strafeLeft(double power) {
+        leftFront.setPower(-power);
+        rightFront.setPower(power);
+        leftBack.setPower(power);
+        rightBack.setPower(-power);
+    }
+
+    public void strafeRight(double power) {
+        leftFront.setPower(power);
+        rightFront.setPower(-power);
+        leftBack.setPower(-power);
+        rightBack.setPower(power);
+    }
     public void handleGamepad1(Gamepad gamepad){
        double rStickX;
        double rStickY;
