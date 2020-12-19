@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import org.firstinspires.ftc.teamcode.TeleDrive.TeleDrive;
 
 import java.net.CookieHandler;
@@ -21,6 +22,8 @@ public class JerseyGirl_TeleDriveHandler extends TeleDrive {
     public DcMotor rightFront   = null;
     public DcMotor leftBack   = null;
     public DcMotor rightBack   = null;
+    BNO055IMU imu;
+    HardwareMap hwMap = null;
 
     // private HardwareMap ahwMap;
 
@@ -55,7 +58,16 @@ public class JerseyGirl_TeleDriveHandler extends TeleDrive {
         rightFront.setDirection(DcMotor.Direction.FORWARD);
         leftBack.setDirection(DcMotor.Direction.REVERSE);
         rightBack.setDirection(DcMotor.Direction.FORWARD);
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
 
+        parameters.mode = BNO055IMU.SensorMode.IMU;
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.loggingEnabled = false;
+        //get and initialize IMU
+        imu = hwMap.get(BNO055IMU.class, "imu");
+
+        imu.initialize(parameters);
 
     }
 

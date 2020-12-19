@@ -1,6 +1,10 @@
 package org.firstinspires.ftc.teamcode.TeleDrive;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 
@@ -70,8 +74,9 @@ public class JerseyGirl_TeleDrive extends JerseyGirl_TeleDriveHandler {
         double scaleDown;
         double currentAngle;
         double totalAngle = 0;
-        boolean lBumper;
-        boolean rBumper;
+        Orientation angles;
+        boolean lBumper = false;
+        boolean rBumper = false;
         boolean dpadLeft;
         boolean dpadRight;
         boolean dpadUp;
@@ -91,6 +96,10 @@ public class JerseyGirl_TeleDrive extends JerseyGirl_TeleDriveHandler {
 
             numOfIncrements++;
         }
+
+        angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS);
+        currentAngle = (double) angles.firstAngle - subtractAngle;
+        telemetry.addData("Heading: ", "%.3f", currentAngle);
         rStickX = gamepad.right_stick_x * speedScale;
         rStickY = -gamepad.right_stick_y * speedScale;
         lStickX = gamepad.left_stick_x * speedScale;
@@ -98,7 +107,21 @@ public class JerseyGirl_TeleDrive extends JerseyGirl_TeleDriveHandler {
         dpadRight = gamepad.dpad_right;
         dpadUp = gamepad.dpad_up;
         dpadDown = gamepad.dpad_down;
-
+        aPress = gamepad.a;
+       
+        if (lStickX > 0) {
+            lStickX = Math.pow(lStickX, 1.6);
+        }else{
+            lStickX = -Math.pow(-lStickX, 1.6);
+        }
+        targetAngle = (Math.atan2(rStickY,rStickX));
+        totalAngle = targetAngle + currentAngle;
+        if (lBumper){ //slow drive
+            speedScale = 0.25;
+        }
+        if (rBumper){ //normal drive
+            speedScale = 1;
+        }
         targetAngle = (Math.atan2(rStickY, rStickX));
         if (dpadLeft) {
             strafeLeft(0.5);
