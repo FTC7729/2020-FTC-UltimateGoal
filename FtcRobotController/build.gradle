@@ -21,6 +21,10 @@ android {
     }
 }
 
+dependencies {
+    implementation files('..\\libs\\road-runner-gui-0.5.3.jar')
+}
+
 repositories {
     maven { url = "https://dl.bintray.com/first-tech-challenge/ftcsdk/" }
 
