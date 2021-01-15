@@ -50,7 +50,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
  * Motor channel:  Right Back (RB) drive motor:        "rightBack"
  */
 
-public abstract class wheelDriveTest extends LinearOpMode
+public abstract class driveWheelTest extends LinearOpMode
 {
 
     /* Public OpMode members. */
@@ -71,7 +71,7 @@ public abstract class wheelDriveTest extends LinearOpMode
     private DcMotor leftFront1;
 
     /* Constructor */
-    public wheelDriveTest() {
+    public driveWheelTest() {
 
     }
 
@@ -393,4 +393,5 @@ public abstract class wheelDriveTest extends LinearOpMode
         rightFront.setPower(0);
         rightBack.setPower(0);
     }
+
 }
