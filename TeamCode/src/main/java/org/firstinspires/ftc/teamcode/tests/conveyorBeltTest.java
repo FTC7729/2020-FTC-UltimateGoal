@@ -22,6 +22,7 @@ public class conveyorBeltTest extends JerseyGirl_TeleDriveHandler_Test {
     double speedScale = 0.25;
 
     public final int LIFT_MAX_POS = 6618;
+    public final double INCREMENT = 0.02;
 
     public final int LIFT_MIN_POS = 0;
 
@@ -60,9 +61,11 @@ public class conveyorBeltTest extends JerseyGirl_TeleDriveHandler_Test {
 
         // switch driving directions
         if (isButtonX) {
-
+            double position = conveyorTest.getPosition() + INCREMENT;
+            conveyorTest.setPosition(position);
         } else if (isButtonY) {
-
+            double position = conveyorTest.getPosition() - INCREMENT;
+            conveyorTest.setPosition(position);
         }
 
         // if either the DPAD left/right buttons are depressed, then we are strafing and setting the
