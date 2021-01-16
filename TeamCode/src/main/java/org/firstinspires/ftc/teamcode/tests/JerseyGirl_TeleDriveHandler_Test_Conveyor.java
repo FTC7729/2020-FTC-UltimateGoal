@@ -15,7 +15,7 @@ public class JerseyGirl_TeleDriveHandler_Test_Conveyor extends TeleDrive {
 
 
     public Servo conveyorTest  = null;
-
+    private ElapsedTime runtime = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
     // private HardwareMap ahwMap;
 
     @Override
