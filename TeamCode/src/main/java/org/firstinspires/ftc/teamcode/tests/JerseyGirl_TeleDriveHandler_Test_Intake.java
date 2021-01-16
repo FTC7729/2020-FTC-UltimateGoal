@@ -15,12 +15,8 @@ public class JerseyGirl_TeleDriveHandler_Test_Intake extends TeleDrive {
 
 
     private ElapsedTime runtime = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
-    public DcMotor leftFront   = null;
-    public DcMotor rightFront   = null;
-    public DcMotor leftBack   = null;
-    public DcMotor rightBack   = null;
-    public Servo conveyorTest  = null;
-    BNO055IMU imu;
+    public DcMotor intakeTest   = null;
+
     HardwareMap hwMap = null;
 
     // private HardwareMap ahwMap;
@@ -28,44 +24,15 @@ public class JerseyGirl_TeleDriveHandler_Test_Intake extends TeleDrive {
     @Override
     public void init() {
         super.init();
-        //Init code here
-        /* local OpMode members. */
-        //HardwareMap hwMap           =  null;
+     
 
+        intakeTest  = hardwareMap.dcMotor.get("intakeTest");
+       
 
-        // Define and Initialize Motors
-        /*
-            CHAWKS: The deviceName should ALWAYS ALWAYS ALWAYS
-                    match the part name to avoid confusion
+     
 
-*/
-
-        leftFront  = hardwareMap.dcMotor.get("leftFront");
-        rightFront  = hardwareMap.dcMotor.get("rightFront");
-
-        leftBack = hardwareMap.dcMotor.get("leftBack");
-        rightBack = hardwareMap.dcMotor.get("rightBack");
-        conveyorTest = hardwareMap.servo.get("conveyorTest");
-
-        // Set Direction/Motion for Motors
-        /*
-            CHAWKS: Why are we reversing the Right Wheels?
-
-*/
-        leftFront.setDirection(DcMotor.Direction.REVERSE);
-        rightFront.setDirection(DcMotor.Direction.FORWARD);
-        leftBack.setDirection(DcMotor.Direction.REVERSE);
-        rightBack.setDirection(DcMotor.Direction.FORWARD);
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-
-        parameters.mode = BNO055IMU.SensorMode.IMU;
-        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.loggingEnabled = false;
-        //get and initialize IMU
-        imu = hwMap.get(BNO055IMU.class, "imu");
-
-        imu.initialize(parameters);
+        intakeTest.setDirection(DcMotor.Direction.REVERSE);
+      
 
     }
 

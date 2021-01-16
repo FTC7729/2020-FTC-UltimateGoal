@@ -21,25 +21,11 @@ public class JerseyGirl_TeleDriveHandler_Test_Conveyor extends TeleDrive {
     @Override
     public void init() {
         super.init();
-        //Init code here
-        /* local OpMode members. */
-        //HardwareMap hwMap           =  null;
 
-
-        // Define and Initialize Motors
-        /*
-            CHAWKS: The deviceName should ALWAYS ALWAYS ALWAYS
-                    match the part name to avoid confusion
-
-*/
 
           conveyorTest = hardwareMap.servo.get("conveyorTest");
 
-        // Set Direction/Motion for Motors
-        /*
-            CHAWKS: Why are we reversing the Right Wheels?
 
-*/
     }
 
     public void init_loop() {
