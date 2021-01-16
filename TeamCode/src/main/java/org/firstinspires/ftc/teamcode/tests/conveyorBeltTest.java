@@ -3,21 +3,13 @@ package org.firstinspires.ftc.teamcode.tests;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.teamcode.TeleDrive.JerseyGirl_TeleDriveHandler;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.Range;
 
 
 
 @TeleOp(name = "conveyorBeltTest ", group = "B")
 //@Disabled
-public class conveyorBeltTest extends JerseyGirl_TeleDriveHandler_Test {
+public class conveyorBeltTest extends JerseyGirl_TeleDriveHandler_Test_Conveyor {
 
     double speedScale = 0.25;
 

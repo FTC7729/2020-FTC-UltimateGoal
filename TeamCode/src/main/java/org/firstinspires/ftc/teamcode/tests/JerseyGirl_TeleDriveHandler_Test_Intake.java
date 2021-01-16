@@ -9,9 +9,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name = "JerseyGirl_TeleDriveHandler_Test", group = "TeleOpMode")
+@TeleOp(name = "JerseyGirl_TeleDriveHandler_Test_Intake", group = "TeleOpMode")
 @Disabled
-public class JerseyGirl_TeleDriveHandler_Test extends TeleDrive {
+public class JerseyGirl_TeleDriveHandler_Test_Intake extends TeleDrive {
 
 
     private ElapsedTime runtime = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
