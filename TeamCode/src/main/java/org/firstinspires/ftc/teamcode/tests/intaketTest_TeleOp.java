@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 
-@TeleOp(name = "conveyorBeltTest ", group = "B")
+@TeleOp(name = "intakeTest_TeleOp ", group = "B")
 //@Disabled
 public class intaketTest_TeleOp extends JerseyGirl_TeleDriveHandler_Test_Intake {
     public static final double DRIVE_SPEED = 1;
