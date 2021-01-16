@@ -17,7 +17,7 @@ import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name = "conveyorBeltTest ", group = "B")
 //@Disabled
-public class conveyorBeltTest extends JerseyGirl_TeleDriveHandler {
+public class conveyorBeltTest extends JerseyGirl_TeleDriveHandler_Test {
 
     double speedScale = 0.25;
 
