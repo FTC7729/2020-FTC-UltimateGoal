@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.HardwareMap.HardwareMap_Example;
 import org.firstinspires.ftc.teamcode.HardwareMap.jerseyGirlHardwareMap;
 // CHAWKS: Name it something useful!
 @TeleOp(name = "I like to move", group = "A")
-//@Disabled
+@Disabled
 public class JerseyGirlHolonomic extends jerseyGirlHardwareMap  {
 
 

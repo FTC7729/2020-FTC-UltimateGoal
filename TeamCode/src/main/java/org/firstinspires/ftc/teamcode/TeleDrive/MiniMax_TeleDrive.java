@@ -2,9 +2,9 @@ package org.firstinspires.ftc.teamcode.TeleDrive;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
-
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 @TeleOp(name = "MiniMax TeleDrive ", group = "A")
-//@Disabled
+@Disabled
 public class MiniMax_TeleDrive extends MiniMax_TeleDriveHandler {
     // Below are VARIABLES that must be outside the "while (opModeIsActive())" loop
         double left;
