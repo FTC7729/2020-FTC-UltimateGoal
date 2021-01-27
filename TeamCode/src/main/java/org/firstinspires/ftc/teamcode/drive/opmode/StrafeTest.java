@@ -14,21 +14,25 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 @Config
 @Autonomous(group = "drive")
 public class StrafeTest extends LinearOpMode {
-    public static double DISTANCE = 15; // in
+    public static double DISTANCE = 24; // in
 
     @Override
     public void runOpMode() throws InterruptedException {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        Trajectory trajectory = drive.trajectoryBuilder(new Pose2d())
+        Trajectory trajectoryRight = drive.trajectoryBuilder(new Pose2d())
                 .strafeRight(DISTANCE)
+                .build();
+        Trajectory trajectoryLeft = drive.trajectoryBuilder(new Pose2d())
+                .strafeLeft(DISTANCE)
                 .build();
 
         waitForStart();
 
         if (isStopRequested()) return;
 
-        drive.followTrajectory(trajectory);
+        drive.followTrajectory(trajectoryRight);
+        drive.followTrajectory(trajectoryLeft);
 
         Pose2d poseEstimate = drive.getPoseEstimate();
         telemetry.addData("finalX", poseEstimate.getX());
