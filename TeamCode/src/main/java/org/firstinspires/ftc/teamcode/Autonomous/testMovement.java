@@ -49,7 +49,7 @@ import org.firstinspires.ftc.teamcode.HardwareMap.jerseyGirlHardwareMap;
 @Autonomous(name="testStrafing", group="Blue_Autonomous")
 // CHAWKS: What does @Disabled mean? what happens if we remove it?
 //@Disabled
-public class testStrafing extends jerseyGirlHardwareMap {
+public class testMovement extends jerseyGirlHardwareMap {
 
 
 
