@@ -97,7 +97,7 @@ public class b1_park extends jerseyGirlHardwareMap {
         if (state == 1){
             telemetry.addData("State","1");
             telemetry.update();
-            strafeLeft(0.1,12);
+            strafeLeft(1,12);
             //facing Forward strafe left one foot.
             state = 2;
         }
@@ -112,7 +112,7 @@ public class b1_park extends jerseyGirlHardwareMap {
         if (state == 3) {
             telemetry.addData("State", "3");
             telemetry.update();
-            goForward(0.1,72);
+            goForward(1,72);
             //Move forward six feet.
             state = 4;
         }

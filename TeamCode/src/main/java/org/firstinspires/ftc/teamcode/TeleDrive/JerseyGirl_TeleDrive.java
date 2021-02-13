@@ -14,25 +14,25 @@ public class JerseyGirl_TeleDrive extends JerseyGirl_TeleDriveHandler {
 
     double speedScale = 0.25;
 
-    public void goForward(double power) {
+    public void goForwardDrive(double power) {
         leftFront.setPower(power);
         rightFront.setPower(power);
         leftBack.setPower(power);
         rightBack.setPower(power);
     }
 
-    public void goBackward(double power) {
-        goForward(-power);
+    public void goBackwardDrive(double power) {
+        goForwardDrive(-power);
     }
 
-    public void strafeLeft(double power) {
+    public void strafeLeftDrive(double power) {
         leftFront.setPower(-power);
         rightFront.setPower(power);
         leftBack.setPower(power);
         rightBack.setPower(-power);
     }
 
-    public void strafeRight(double power) {
+    public void strafeRightDrive(double power) {
         leftFront.setPower(power);
         rightFront.setPower(-power);
         leftBack.setPower(-power);
@@ -124,13 +124,13 @@ public class JerseyGirl_TeleDrive extends JerseyGirl_TeleDriveHandler {
         }
         targetAngle = (Math.atan2(rStickY, rStickX));
         if (dpadLeft) {
-            strafeLeft(0.5);
+            strafeLeftDrive(0.5);
         } else if (dpadRight) {
-            strafeRight(0.5);
+            strafeRightDrive(0.5);
         } else if (dpadUp) {
-            goForward(0.5);
+            goForwardDrive(0.5);
         } else if (dpadDown) {
-            goBackward(0.5);
+            goBackwardDrive(0.5);
         } else {
 
 
