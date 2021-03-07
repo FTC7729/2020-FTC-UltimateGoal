@@ -1,3 +1,5 @@
+// THIS IS THE NEW CODE CLAIRE MADE ON SUNDAY 3/7/21 THAT INCLUDES THE TWO MOTORS FOR THE ARM AND THE 3 SERVOS FOR THE WRIST
+
 package org.firstinspires.ftc.teamcode;
 
         import com.qualcomm.robotcore.eventloop.opmode.OpMode;
