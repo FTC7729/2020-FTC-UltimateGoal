@@ -46,14 +46,14 @@ public class TeleOpCurrentNew extends OpMode {
         frontLeft = hardwareMap.dcMotor.get("front left");
         backRight = hardwareMap.dcMotor.get("back right");
         backLeft = hardwareMap.dcMotor.get("back left");
-     //   raiseArm1 = hardwareMap.dcMotor.get("raise arm 1");
-       // raiseArm2 = hardwareMap.dcMotor.get("raise arm 2");
-       // extendArm = hardwareMap.dcMotor.get("extend arm");
-        // claw1 = hardwareMap.crservo.get("claw 1");
-        //claw2 = hardwareMap.crservo.get("claw 2");
+       raiseArm1 = hardwareMap.dcMotor.get("raise arm 1");
+        raiseArm2 = hardwareMap.dcMotor.get("raise arm 2");
+        extendArm = hardwareMap.dcMotor.get("extend arm");
+        claw1 = hardwareMap.crservo.get("claw 1");
+        claw2 = hardwareMap.crservo.get("claw 2");
        // drag1 = hardwareMap.crservo.get("drag front");
      //   drag2 = hardwareMap.crservo.get("drag back");
-     //   wrist = hardwareMap.crservo.get("wrist");
+        wrist = hardwareMap.crservo.get("wrist");
     }
 
     private void setRaiseArmPower(float armPower, double multiplier){
@@ -92,8 +92,8 @@ public class TeleOpCurrentNew extends OpMode {
 
         backRight.setPower(bRightPower/powerButton);
 
-        //raiseArm1.setDirection(DcMotorSimple.Direction.FORWARD);
-        //raiseArm2.setDirection(DcMotorSimple.Direction.REVERSE);
+        raiseArm1.setDirection(DcMotorSimple.Direction.FORWARD);
+        raiseArm2.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
 
@@ -136,22 +136,22 @@ public class TeleOpCurrentNew extends OpMode {
         //          -----GAME PAD 2-----
 
         //              ###CLAMPS###
-       /* if (gamepad2.x){
+        if (gamepad2.x){
             clamp = true;
-        } */
-      /*  if (gamepad2.y){
+        } 
+        if (gamepad2.y){
             claw1.setPower(1);
             claw2.setPower(-1);
             clamp = false;
-        } */
-       /* else if (!clamp){
+        } 
+        else if (!clamp){
             claw1.setPower(0);
             claw2.setPower(0);
-        } */
-       /* if (clamp){
+        } 
+        if (clamp){
             claw1.setPower(-1);
             claw2.setPower(1);
-        } */
+        } 
 
 
 
@@ -159,7 +159,7 @@ public class TeleOpCurrentNew extends OpMode {
         //claw2: 0=open, 1=closed
 
         //open
-     /*   if (gamepad2.y){
+        if (gamepad2.y){
             claw1.setPosition(0.6);
             claw2.setPosition(0.4);
         }
@@ -167,60 +167,29 @@ public class TeleOpCurrentNew extends OpMode {
        else if (gamepad2.x){
             claw1.setPosition(0.4);
             claw2.setPosition(0.6);
-        } */
+        } 
 
 
 
         //              ###ARM EXTENSION###
 
-      //  extendArm.setPower(-gamepad2.right_stick_y);
+       extendArm.setPower(-gamepad2.right_stick_y);
 
         //              ###WRIST###
 
-     /*   if (gamepad2.right_bumper){
+       if (gamepad2.right_bumper){
             wrist.setPower(0.5);
-        } */
-     /*   else if (gamepad2.left_bumper){
+        } 
+        else if (gamepad2.left_bumper){
             wrist.setPower(-0.5);
-        } */
-      /*  else {
+        } 
+       else {
             wrist.setPower(0);
-        } */
+        } 
 
 
         //              ###ARM RAISING###
 
-        // Fast raise arm mode
-       /* if (gamepad2.right_trigger>0){
-            //If the driver is trying to move the arm up:
-            if (rawRaiseValue > 0) {
-                setRaiseArmPower(rawRaiseValue, 0.6);
-            }
-            //If the driver is trying to move the arm down:
-            else if (rawRaiseValue < 0) {
-                setRaiseArmPower(0.1f, 0.35);
-            }
-            //If the driver is not moving the arm
-            else {
-                setRaiseArmPower(0.23f, 1);
-            }
-        }*/
-        // Slow raise arm mode
-       /* else {
-            //If the driver is trying to move the arm up:
-            if (rawRaiseValue > 0) {
-                setRaiseArmPower(rawRaiseValue, 0.35);
-            }
-            //If the driver is trying to move the arm down:
-            else if (rawRaiseValue < 0) {
-                setRaiseArmPower(0f, 1);
-            }
-            //If the driver is not moving the arm
-            else {
-                setRaiseArmPower(0.23f, 1);
-            }
-        }*/
-        /*
         // Fast raise arm mode
         if (gamepad2.right_trigger>0){
             //If the driver is trying to move the arm up:
@@ -232,12 +201,12 @@ public class TeleOpCurrentNew extends OpMode {
                 setRaiseArmPower(0.1f, 0.35);
             }
             //If the driver is not moving the arm
-            /*else {
+            else {
                 setRaiseArmPower(0.23f, 1);
             }
         }
         // Slow raise arm mode
-     /*   else {
+        else {
             //If the driver is trying to move the arm up:
             if (rawRaiseValue > 0) {
                 setRaiseArmPower(rawRaiseValue, 0.35);
@@ -247,10 +216,41 @@ public class TeleOpCurrentNew extends OpMode {
                 setRaiseArmPower(0f, 1);
             }
             //If the driver is not moving the arm
-           /* else {
+            else {
                 setRaiseArmPower(0.23f, 1);
             }
-        }*/
+        }
+        
+        // Fast raise arm mode
+        if (gamepad2.right_trigger>0){
+            //If the driver is trying to move the arm up:
+            if (rawRaiseValue > 0) {
+                setRaiseArmPower(rawRaiseValue, 0.6);
+            }
+            //If the driver is trying to move the arm down:
+            else if (rawRaiseValue < 0) {
+                setRaiseArmPower(0.1f, 0.35);
+            }
+            //If the driver is not moving the arm
+             {
+                setRaiseArmPower(0.23f, 1);
+            }
+        }
+        // Slow raise arm mode
+        else {
+            //If the driver is trying to move the arm up:
+            if (rawRaiseValue > 0) {
+                setRaiseArmPower(rawRaiseValue, 0.35);
+            }
+            //If the driver is trying to move the arm down:
+            else if (rawRaiseValue < 0) {
+                setRaiseArmPower(0f, 1);
+            }
+            //If the driver is not moving the arm
+            else {
+                setRaiseArmPower(0.23f, 1);
+            }
+        }
 
 
 
