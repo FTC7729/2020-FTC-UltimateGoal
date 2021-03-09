@@ -1,147 +1,252 @@
+// THIS IS THE NEW CODE CLAIRE MADE ON SUNDAY 3/7/21 THAT INCLUDES THE TWO MOTORS FOR THE ARM AND THE 3 SERVOS FOR THE WRIST
+
 package org.firstinspires.ftc.teamcode;
-//THIS IS FOR THE BLUE SIDE
-import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.Range;
+
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
-import java.util.ArrayList;
-import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-
-/*
-Parallel Lions 9681 Autonomous Blue Code
-author: 9681 Software
-GOALS: Place the wobble goal in the zone and put rings in lowest goal
-DESCRIPTION: This code is used for our autonomous when we are located on the blue side
- */
-@Autonomous(name="AutoTest", group="Iterative Opmode")
-public class AutonomousTest extends OpMode
-{
-
-
-    /*
-    ---MOTORS---
-     */
-    DcMotor leftFront;
-    DcMotor rightFront;
-    DcMotor leftBack;
-    DcMotor rightBack; //make sure these are the right motors
-    DcMotor extendArm;
-    CRServo claw1, claw2;
+@TeleOp(name ="TeleOpCurrentNew", group = "TeleOP")
+public class TeleOpCurrentNew extends OpMode {
+    DcMotor frontRight;
+    DcMotor frontLeft;
+    DcMotor backRight;
+    DcMotor backLeft;
+    DcMotor raiseArm1;
     DcMotor raiseArm2;
-    DcMotor raiseArmMotor;
+    DcMotor extendArm;
+    CRServo claw1;
+    CRServo claw2;
+    CRServo wrist;
+    boolean powerControl = false;
+    double powerGiven =0;
+    boolean clamp = false;
+    int powerButton;
+    CRServo drag1, drag2;
 
-
-    ArrayList<DcMotor> motors = new ArrayList<DcMotor>();
-    ArrayList<CRServo> servos = new ArrayList<CRServo>();
-
-    private StateMachine machine;
-
-    driveState strafeLeft;
-    driveState forward1;
-    driveState turnLeft;
-    extendArmState raiseArm1;
-    extendArmState extendFirst;
-
-    CRServoState open1;
-    driveState moveBackwards1;
-
+    double armPowerMultiplier = 0.5;
 
 
     public void init() {
+        //hardware map is for phone
 
-        /*
-        ---HARDWARE MAP---
-         */
-        rightFront=hardwareMap.dcMotor.get("right front");
-        leftFront = hardwareMap.dcMotor.get("left front");
-        rightBack = hardwareMap.dcMotor.get("right back");
-        leftBack = hardwareMap.dcMotor.get("left back");
-        raiseArmMotor = hardwareMap.dcMotor.get("raise arm");
+        //    touchSense = hardwareMap.get(DigitalChannel.class, "sensor_digital");
+        frontRight = hardwareMap.dcMotor.get("front right");
+        frontLeft = hardwareMap.dcMotor.get("front left");
+        backRight = hardwareMap.dcMotor.get("back right");
+        backLeft = hardwareMap.dcMotor.get("back left");
+        raiseArm1 = hardwareMap.dcMotor.get("raise arm");
+        //raiseArm2 = hardwareMap.dcMotor.get("raise arm 2");
         extendArm = hardwareMap.dcMotor.get("extend arm");
-
         claw1 = hardwareMap.crservo.get("claw 1");
         claw2 = hardwareMap.crservo.get("claw 2");
-        //get the CRSERVO
-
-
-        /*
-        ---MOTOR DIRECTIONS---
-         */
-        rightBack.setDirection(DcMotor.Direction.REVERSE);
-        rightFront.setDirection(DcMotor.Direction.REVERSE);
-//could be wrong!!!! test
-        /*
-        ---GROUPING---
-         */
-        motors.add(rightFront);
-        motors.add(leftFront);
-        motors.add(rightBack);
-        motors.add(leftBack);
-        // CRServos.add(claw1);
-        // CRServos.add(claw2);
-        //extend, CRServos
-        //maybe add an extra time?????? it was in colorstone
-        /*
-        ---USING STATES---
-         */
-
-        strafeLeft = new driveState(70, 1.0, motors, "left"); //first move left
-        //drive forward a little, then turn left 90 degrees, raise and extend arm. dispose rings, move backwards
-        forward1 = new driveState(20, 1.0, motors, "forward");
-        turnLeft = new driveState(10, 1.0, motors, "turnLeft");
-        raiseArm1 = new extendArmState(500, -0.5, raiseArmMotor); //figure this out
-        extendFirst = new extendArmState(400, 1.0, extendArm);
-        open1 = new CRServoState(2000, 1.0, 1.0, servos);//ask abby if there are two servos
-        moveBackwards1 = new driveState(5, 1.0, motors, "backward");
-        //open the claws
-        //back up
-
-
-
-        strafeLeft.setNextState(forward1);
-        forward1.setNextState(turnLeft);
-        turnLeft.setNextState(raiseArm1);
-        raiseArm1.setNextState(extendFirst);
-        extendFirst.setNextState(open1);
-        open1.setNextState(moveBackwards1);
-        moveBackwards1.setNextState(null);
-
-
-
-
-
+        // drag1 = hardwareMap.crservo.get("drag front");
+        //   drag2 = hardwareMap.crservo.get("drag back");
+        wrist = hardwareMap.crservo.get("wrist");
     }
 
-
-    @Override
-    public void start(){
-
-        machine = new StateMachine(strafeLeft);
-
+    private void setRaiseArmPower(double armPower, double multiplier){
+        raiseArm1.setPower(armPower*multiplier);
+      //  raiseArm2.setPower(armPower*multiplier);
+        return;
     }
 
+    public void loop() {
+        //              -----STICK VARIABLES-----
+        //For driving
+        float move = -gamepad1.left_stick_y;
+        float crabWalk = gamepad1.left_stick_x;
+        float rotation = -gamepad1.right_stick_x;
+
+        //For arm raising
+        float rawRaiseValue = -gamepad2.left_stick_y;
 
 
-    public void loop()  {
 
-        machine.update();
 
-    }
+        //              -----WHEEL LOGIC-----
+        //Wheels: Holonomic drive formula uses values of gamestick position to move
+        double fLeftPower = Range.clip(move + rotation + crabWalk, -1.0, 1.0);
+        double bLeftPower = Range.clip(move + rotation - crabWalk, -1.0, 1.0);
+        double fRightPower = Range.clip(move - rotation - crabWalk, -1.0, 1.0);
+        double bRightPower = Range.clip(move - rotation + crabWalk, -1.0, 1.0);
+        //Assignment of motor power in relation to wheels
+        frontLeft.setPower(fLeftPower/powerButton);
+        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
-    public void wait(int time) {
-        try {
-            Thread.sleep(time * 1000);//milliseconds
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        backLeft.setPower(bLeftPower/powerButton);
+        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        frontRight.setPower(fRightPower/powerButton);
+
+        backRight.setPower(bRightPower/powerButton);
+
+        raiseArm1.setDirection(DcMotorSimple.Direction.FORWARD);
+     //
+        //
+        //
+        //
+        //
+        //   raiseArm2.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
+
+        //          -----GAME PAD 1-----
+
+        //              ###SPEED BOOST###
+        if(gamepad1.right_trigger>0.1){
+            powerButton=1;
+        }else{
+            powerButton =2;
         }
+
+        //              ###DRAG SERVOS###
+      /* if(gamepad1.a){
+            drag1.setPower(.5);
+            drag2.setPower(-.5);
+        } */
+       /* else if(gamepad1.b){
+            drag1.setPower(-.5);
+            drag2.setPower(.5);
+        } */
+       /* else{
+            drag1.setPower(0);
+            drag2.setPower(0);
+        } */
+
+        /* if(gamepad1.x){
+            drag2.setPower(.5);
+        }
+        else if(gamepad1.y){
+            drag2.setPower(-.5);
+        }
+        else{
+            drag2.setPower(0);
+        }*/
+
+
+
+
+        //          -----GAME PAD 2-----
+
+        //              ###CLAMPS###
+        if (gamepad2.x){
+            clamp = true;
+        }
+        if (gamepad2.y){
+            claw1.setPower(1);
+            claw2.setPower(-1);
+            clamp = false;
+        }
+        else if (!clamp){
+            claw1.setPower(0);
+            claw2.setPower(0);
+        }
+        if (clamp){
+            claw1.setPower(-1);
+            claw2.setPower(1);
+        }
+
+
+
+        //claw1: 1=open, 0=closed
+        //claw2: 0=open, 1=closed
+
+        //open
+        if (gamepad2.y){
+            claw1.setPower(0.6);
+            claw2.setPower(0.4);
+        }
+        //close
+        else if (gamepad2.x){
+            claw1.setPower(0.4);
+            claw2.setPower(0.6);
+        }
+
+
+
+        //              ###ARM EXTENSION###
+
+        extendArm.setPower(-gamepad2.right_stick_y);
+
+        //              ###WRIST###
+
+        if (gamepad2.right_bumper){
+            wrist.setPower(0.5);
+        }
+        else if (gamepad2.left_bumper){
+            wrist.setPower(-0.5);
+        }
+        else {
+            wrist.setPower(0);
+        }
+
+
+        //              ###ARM RAISING###
+
+        // Fast raise arm mode
+        if (gamepad2.right_trigger>0){
+            //If the driver is trying to move the arm up:
+            setRaiseArmPower(rawRaiseValue, 0.6);
+        }
+        // Slow raise arm mode
+
+        //setRaiseArmPower(rawRaiseValue, 0.35);
+        else {
+            //If the driver is trying to move the arm up:
+            setRaiseArmPower(rawRaiseValue, 0.35);
+        }
+
+        // Fast raise arm mode
+        if (gamepad2.right_trigger>0){
+            //If the driver is trying to move the arm up:
+            if (rawRaiseValue > 0) {
+                setRaiseArmPower(rawRaiseValue, 0.6);
+            }
+            //If the driver is trying to move the arm down:
+            else if (rawRaiseValue < 0) {
+                setRaiseArmPower(0.1, 0.35);
+            }
+            //If the driver is not moving the arm
+            else{
+                setRaiseArmPower(0.0, 1);
+            }
+        }
+        // Slow raise arm mode
+        else {
+            //If the driver is trying to move the arm up:
+            if (rawRaiseValue > 0) {
+                setRaiseArmPower(rawRaiseValue, 0.35);
+            }
+            //If the driver is trying to move the arm down:
+            else if (rawRaiseValue < 0) {
+                setRaiseArmPower(0, 1);
+            }
+            //If the driver is not moving the arm
+            else {
+                setRaiseArmPower(0.0, 1);
+            }
+        }
+
+
+
+
     }
+
+
+
+
 }
